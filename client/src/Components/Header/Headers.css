@@ -1,0 +1,23 @@
+.header {
+  background-color: black;
+  padding: 20px 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.header__container {
+  display: flex;
+  justify-content: space-between;
+}
+.header__logo {
+  color: white;
+}
+.header__actions {
+  display: flex;
+}
+.header__action {
+  text-decoration: none;
+  color: #fafafa;
+  padding: 0 20px 0;
+}

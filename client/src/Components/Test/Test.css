@@ -1,0 +1,17 @@
+.test {
+  background-color: mediumpurple;
+  height: 100vh;
+}
+.test__container {
+}
+.test__header {
+  padding-top: 50px;
+  color: #fafafa;
+}
+.test__input {
+  background-color: gray;
+}
+
+.test__input-error {
+  background-color: indianred;
+}

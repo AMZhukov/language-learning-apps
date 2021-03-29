@@ -1,35 +1,28 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-}
-.actions {
-  display: flex;
-}
-.logo {
-  color: white;
-}
-.action {
-  text-decoration: none;
-  color: #fafafa;
-  padding: 0 20px 0;
-}
-
 .main {
   font-size: 40px;
   width: 100%;
   height: 100vh;
+  background-color: darkmagenta;
+}
+
+.main__container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
-.mainContent {
+
+.main__content {
   color: #fafafa;
   padding: 30px;
 }
 
-.checkTest {
+.main__checkTest {
+  padding: 10px;
+  border-radius: 10px;
   color: #fafafa;
   background-color: #28bd75;
   font-size: 30px;
+  text-decoration: none;
 }

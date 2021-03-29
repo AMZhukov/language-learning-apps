@@ -1,14 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-import {Header, Main} from "./main";
-import React from 'react';
+import React from "react";
+import { Route, BrowserRouter } from "react-router-dom";
+
+import { Test } from "./Components/Test/Test";
+import { Main } from "./Components/MainPage/Main";
+import { Header } from "./Components/Header/Header.jsx";
+import "./App.css";
+import "./Components/basicStyle.css";
 
 function App() {
-  console.log(1); //?
   return (
     <div className="App">
       <Header />
-      <Main />
+      <BrowserRouter>
+        <Route exact path="/">
+          <Main />
+        </Route>
+        <Route path="/test">
+          <Test />
+        </Route>
+      </BrowserRouter>
     </div>
   );
 }
