@@ -13,5 +13,9 @@
 }
 
 .test__input-error {
-  background-color: indianred;
+  background-color: #ffb1a2;
+}
+
+.test__input-truth {
+  background-color: #78bd7c;
 }

@@ -1,12 +1,37 @@
 import express from "express";
 import path from 'path';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 const server = express();
 const __dirname = path.resolve();
 
+const isProd = process.env.NODE_ENV === 'production';
+dotenv.config({ path: isProd ? '.env.prod' : '.env.dev' });
+console.log(`Env loading ${isProd ? 'PROD' : 'DEV'} file`);
 
+if (isProd) {
+  app.use('/', express.static(path.join(__dirname, 'client', 'build')));
 
-server.listen(5000, () => {
-  console.log("server has been started on 5000 port");
-});
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
+async function start() {
+  try {
+    await mongoose.connect(process.env.LINK, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    app.listen(process.env.PORT, () => {
+      console.log(`Server has been started ${process.env.PORT}`);
+    });
+  } catch (error) {
+    console.log(`Server error ${error.message}`);
+    process.exit(1);
+  }
+}
+
+start();
