@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import './Test.css';
 
 const Test = () => {
-  // let error = "test__input-error";
-
   const questions = [
     {
       question: "What does mean the word 'sliphold'",
@@ -20,29 +18,28 @@ const Test = () => {
 
   const [isError, setError] = useState('');
 
+  const [answer, setAnswer] = useState('');
+
   const next = () => {
-    if (questions.lenght === currentQuestion + 1) {
-      nextQuestion(currentQuestion);
-    } else {
+    if (currentQuestion + 1 < questions.length) {
       nextQuestion(currentQuestion + 1);
+    } else {
+      nextQuestion(currentQuestion);
     }
     setError('');
   };
 
-  const checkWords = (e) => {
-    if (e.key !== 'Enter') {
-      setError((prev) => prev);
-    } else {
-      if (e.target.value === questions[currentQuestion].correctAnswer) {
+  const checkWords = (eer) => {
+    if (eer.key === 'Enter') {
+      if (eer.target.value === questions[currentQuestion].correctAnswer[0]) {
         setError('test__input-truth');
-        setTimeout(() => {}, 0);
       } else {
         setError('test__input-error');
       }
       setTimeout(() => {
         next();
-        e.target.value = '';
-      }, 1500);
+        setAnswer('');
+      }, 1000);
     }
   };
 
@@ -50,12 +47,18 @@ const Test = () => {
     <div className="test">
       <div className="test__container container">
         <p className="test__header">
-          {currentQuestion}
+          {currentQuestion + 1}
           .
           {questions[currentQuestion].question}
           ?
         </p>
-        <input className={`test__input ${isError}`} type="text" onKeyPress={(e) => checkWords(e)} />
+        <input
+          className={`test__input ${isError}`}
+          type="text"
+          onChange={(e) => setAnswer(e.target.value)}
+          onKeyPress={(e) => checkWords(e)}
+          value={answer}
+        />
       </div>
     </div>
   );
