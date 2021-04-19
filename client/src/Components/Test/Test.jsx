@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { FinishTest } from './FinishTest';
 import './Test.css';
+import { ActiveTest } from './ActiveTest';
 
 const Test = () => {
   const questions = [
@@ -14,24 +16,45 @@ const Test = () => {
     },
   ];
 
+  const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState(0);
+
   const [currentQuestion, nextQuestion] = useState(0);
 
   const [isError, setError] = useState('');
 
   const [answer, setAnswer] = useState('');
 
+  const [isFinished, setIsFinished] = useState(false);
+
+  const checkIsFinished = () => {
+    return currentQuestion + 1 === questions.length;
+  };
+
   const next = () => {
-    if (currentQuestion + 1 < questions.length) {
-      nextQuestion(currentQuestion + 1);
+    if (checkIsFinished()) {
+      setIsFinished(true);
     } else {
-      nextQuestion(currentQuestion);
+      nextQuestion(currentQuestion + 1);
     }
     setError('');
   };
 
-  const checkWords = (eer) => {
-    if (eer.key === 'Enter') {
-      if (eer.target.value === questions[currentQuestion].correctAnswer[0]) {
+  const checkingTheCorrectAnswer = (word) => {
+    console.log(questions[currentQuestion].correctAnswer[0]);
+    console.log(questions[currentQuestion].correctAnswer[1]);
+    for (let i = 0; i < questions[currentQuestion].correctAnswer.length; i += 1) {
+      if (word === questions[currentQuestion].correctAnswer[i]) {
+        console.log('сюда заходит');
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const checkWords = (event) => {
+    if (event.key === 'Enter') {
+      if (checkingTheCorrectAnswer(event.target.value)) {
+        setNumberOfCorrectAnswers(numberOfCorrectAnswers + 1);
         setError('test__input-truth');
       } else {
         setError('test__input-error');
@@ -46,31 +69,21 @@ const Test = () => {
   return (
     <div className="test">
       <div className="test__container container">
-        <p className="test__header">
-          {currentQuestion + 1}
-          .
-          {questions[currentQuestion].question}
-          ?
-        </p>
-        <input
-          className={`test__input ${isError}`}
-          type="text"
-          onChange={(e) => setAnswer(e.target.value)}
-          onKeyPress={(e) => checkWords(e)}
-          value={answer}
-        />
+        {isFinished ? (
+          <FinishTest numberOfCorrectAnswers={numberOfCorrectAnswers} />
+        ) : (
+          <ActiveTest
+            answer={answer}
+            checkWords={checkWords}
+            currentQuestion={currentQuestion}
+            isError={isError}
+            questions={questions}
+            setAnswer={setAnswer}
+          />
+        )}
       </div>
     </div>
   );
 };
-
-// const Test123 = (props) => (
-//   <div className="test">
-//     <p className="test__header">
-//       Вы набрали
-//       {props.scores}
-//     </p>
-//   </div>
-// );
 
 export default Test;
