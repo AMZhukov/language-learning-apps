@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FinishTest } from './FinishTest';
-import './Test.css';
 import { ActiveTest } from './ActiveTest';
+import './Test.css';
 
 const Test = () => {
   const questions = [
@@ -30,7 +30,7 @@ const Test = () => {
     return currentQuestion + 1 === questions.length;
   };
 
-  const next = () => {
+  const nextAnswer = () => {
     if (checkIsFinished()) {
       setIsFinished(true);
     } else {
@@ -40,11 +40,8 @@ const Test = () => {
   };
 
   const checkingTheCorrectAnswer = (word) => {
-    console.log(questions[currentQuestion].correctAnswer[0]);
-    console.log(questions[currentQuestion].correctAnswer[1]);
     for (let i = 0; i < questions[currentQuestion].correctAnswer.length; i += 1) {
       if (word === questions[currentQuestion].correctAnswer[i]) {
-        console.log('сюда заходит');
         return true;
       }
     }
@@ -60,7 +57,7 @@ const Test = () => {
         setError('test__input-error');
       }
       setTimeout(() => {
-        next();
+        nextAnswer();
         setAnswer('');
       }, 1000);
     }
