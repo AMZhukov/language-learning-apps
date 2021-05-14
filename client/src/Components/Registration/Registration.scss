@@ -1,0 +1,41 @@
+.registration {
+  font-size: 22px;
+  width: 100%;
+  height: 100vh;
+  color: HSL(2, 0%, 98%);
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  justify-content: flex-start;
+  align-items: center;
+}
+.registration__form {
+  max-width: 440px;
+}
+.registration__logo-wrapper {
+}
+.registration__logo {
+  max-width: 150px;
+  min-height: 100px;
+}
+.registration__label-wrapper {
+  padding: 26px 5px;
+  text-align: left;
+}
+.registration__label {
+  padding-bottom: 20px;
+}
+.registration__input {
+  width: 100%;
+  padding: 0 5px;
+  border-radius: 5px;
+}
+.registration__error-wrapper {
+  position: relative;
+}
+.registration__error {
+  position: absolute;
+  font-weight: 200;
+  font-size: 1em;
+  color: hsl(10, 80, 55);
+}

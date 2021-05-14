@@ -19,6 +19,9 @@
     ],
     "rules": {
         "import/prefer-default-export": "off",
-        "arrow-body-style": ["error", "always"]
+        "arrow-body-style": ["error", "always"],
+        "import/extensions": 0,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "error"
     }
 }

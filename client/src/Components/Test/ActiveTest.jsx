@@ -2,34 +2,29 @@ import React from 'react';
 
 /* eslint-disable react/prop-types */
 export const ActiveTest = ({
-  answer,
-  checkWords,
   currentQuestion,
   isError,
   questions,
-  setAnswer,
-/* eslint-enable react/prop-types */
+  checkWords,
+  answerInput,
+  // refAnswerInput,
+  /* eslint-enable react/prop-types */
 }) => {
   return (
-    <>
+    <form onSubmit={(event) => checkWords(event)}>
       <p className="test__header">
-        {currentQuestion + 1}
-        .
-        {/* eslint-disable-next-line react/prop-types */}
-        {questions[currentQuestion].question}
-        ?
+        {currentQuestion + 1}.{/* eslint-disable-next-line react/prop-types */}
+        {questions[currentQuestion].question}?
       </p>
       <input
+        // ref={refAnswerInput}
+        onChange={answerInput.onChange}
+        value={answerInput.value}
         className={`test__input ${isError}`}
         type="text"
-        onChange={(event) => {
-          return setAnswer(event.target.value);
-        }}
-        onKeyPress={(event) => {
-          return checkWords(event);
-        }}
-        value={answer}
+        // onBlur={(event) => checkWords(event)}
       />
-    </>
+      <button type="submit" className="test__button-sub" />
+    </form>
   );
 };

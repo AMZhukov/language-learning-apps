@@ -19,3 +19,7 @@
 .test__input-truth {
   background-color: #78bd7c;
 }
+
+.test__button-sub {
+  visibility: hidden;
+}

@@ -1,30 +1,42 @@
-import React, { useState } from 'react';
-import { FinishTest } from './FinishTest';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+
+import { addCorrectAnswer, clearNumberCorrectAnswer } from '../../Redux/Test/testAction';
 import { ActiveTest } from './ActiveTest';
+import { useInput } from '../../hooks/useInput';
+import { Loading } from '../Loading/Loading';
 import './Test.css';
 
 const Test = () => {
-  const questions = [
-    {
-      question: "What does mean the word 'sliphold'",
-      correctAnswer: ['сливать', 'скользкая хватка'],
-    },
-    {
-      question:
-        'Many singers streamed ... online concerts for people around the world (his/it’s/your/their (1))',
-      correctAnswer: ['their'],
-    },
-  ];
-
-  const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState(0);
+  const dispatch = useDispatch();
+  const answerInput = useInput('');
+  const [questions, setQuestions] = useState([]);
+  useEffect(() => {
+    async function request() {
+      const response = await axios.get('/api/testQuestions');
+      setQuestions((prev) => [...prev, ...response.data]);
+    }
+    setTimeout(request, 500);
+    dispatch(clearNumberCorrectAnswer());
+  }, []);
 
   const [currentQuestion, nextQuestion] = useState(0);
 
   const [isError, setError] = useState('');
 
-  const [answer, setAnswer] = useState('');
-
   const [isFinished, setIsFinished] = useState(false);
+
+  const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState(0);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if (isFinished) {
+      history.push('/finishTest');
+    }
+  }, [history, isFinished]);
 
   const checkIsFinished = () => {
     return currentQuestion + 1 === questions.length;
@@ -49,37 +61,39 @@ const Test = () => {
   };
 
   const checkWords = (event) => {
-    if (event.key === 'Enter') {
-      if (checkingTheCorrectAnswer(event.target.value)) {
-        setNumberOfCorrectAnswers(numberOfCorrectAnswers + 1);
-        setError('test__input-truth');
-      } else {
-        setError('test__input-error');
-      }
-      setTimeout(() => {
-        nextAnswer();
-        setAnswer('');
-      }, 1000);
+    event.preventDefault();
+    if (checkingTheCorrectAnswer(answerInput.value)) {
+      setNumberOfCorrectAnswers(numberOfCorrectAnswers + 1);
+      dispatch(addCorrectAnswer());
+      setError('test__input-truth');
+    } else {
+      setNumberOfCorrectAnswers(numberOfCorrectAnswers);
+      setError('test__input-error');
     }
+    setTimeout(() => {
+      answerInput.reset();
+      nextAnswer();
+    }, 1000);
   };
 
   return (
-    <div className="test">
-      <div className="test__container container">
-        {isFinished ? (
-          <FinishTest numberOfCorrectAnswers={numberOfCorrectAnswers} />
-        ) : (
-          <ActiveTest
-            answer={answer}
-            checkWords={checkWords}
-            currentQuestion={currentQuestion}
-            isError={isError}
-            questions={questions}
-            setAnswer={setAnswer}
-          />
-        )}
+    <>
+      <div className="test">
+        <div className="test__container container">
+          {questions.length === 0 ? (
+            <Loading />
+          ) : (
+            <ActiveTest
+              answerInput={answerInput}
+              checkWords={checkWords}
+              currentQuestion={currentQuestion}
+              isError={isError}
+              questions={questions}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
