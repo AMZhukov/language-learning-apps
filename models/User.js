@@ -1,12 +1,15 @@
-import { Schema } from 'mongoose';
-import { Shortid } from 'shortid';
+/* eslint-disable */
+import mongoose from 'mongoose';
+/* eslint-enable */
+import Shortid from 'shortid';
 
-export const User = new Schema({
-  _id: { type: String, default: Shortid.generate, unique: true },
+const schema = new mongoose.Schema({
+  _id: { type: String, default: Shortid.generate },
   email: { type: String, require: true, unique: true },
-  firstName: { type: String, require: true },
-  lastName: { type: String, require: true },
+  username: { type: String, require: true },
   dateOfBirth: { type: Date },
   registrationDate: { type: Date, default: new Date() },
   phoneNumber: { type: Number },
 });
+
+export const User = mongoose.model('User', schema);

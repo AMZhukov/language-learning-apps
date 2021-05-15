@@ -29,6 +29,10 @@
   width: 100%;
   padding: 0 5px;
   border-radius: 5px;
+  border: transparent 3px solid;
+}
+.registration__input-error {
+  border: hsl(10, 80%, 55%) 3px solid;
 }
 .registration__error-wrapper {
   position: relative;
@@ -37,5 +41,5 @@
   position: absolute;
   font-weight: 200;
   font-size: 1em;
-  color: hsl(10, 80, 55);
+  color: hsl(10, 80%, 55%);
 }

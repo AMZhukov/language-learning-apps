@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useInput } from '../../hooks/useInput';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -14,21 +14,18 @@ import './Registration.scss';
 import logo from '../../logo.svg';
 
 yup.setLocale({
-  string:{
+  string: {
     /* eslint-disable no-template-curly-in-string */
     min: 'Минимальное количество символов ${min}',
-    max: 'Максимальное количество символов ${min}',
+    max: 'Максимальное количество символов ${max}',
     /* eslint-enable no-template-curly-in-string */
-  }
-})
+  },
+});
 
 const schema = yup.object().shape({
-  Username: yup.string().min(4).max(6).required('First Name should be required please'),
-  // lastName: yup.string().required(),
-  // email: yup.string().email().required(),
-  // age: yup.number().positive().integer().required(),
-  // password: yup.string().min(4).max(15).required(),
-  // confirmPassword: yup.string().oneOf([yup.ref("password"), null]),
+  username: yup.string().required().max(15),
+  email: yup.string().email().required().max(30),
+  password: yup.string().min(4).max(15).required(),
 });
 
 export const Registration = () => {
@@ -36,14 +33,13 @@ export const Registration = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({ resolver: yupResolver(schema), mode: 'onTouched' });
 
-  const registration = async (event) => {
+  const registration = async (registrationData) => {
     try {
-      // const response = await axios.post('/api/registration', { username });
-      alert(123);
+      const response = await axios.post('/api/registration', { registrationData });
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data);
     }
   };
 
@@ -60,7 +56,7 @@ export const Registration = () => {
           <label className="registration__label">
             Username
             <Input
-              name="Username"
+              name="username"
               className="registration__input"
               type="text"
               register={register}
@@ -72,13 +68,27 @@ export const Registration = () => {
         <div className="registration__label-wrapper">
           <label>
             Email
-            <input className="registration__input" type="email" {...register('email')} />
+            <Input
+              className="registration__input"
+              name="email"
+              type="email"
+              register={register}
+              errors={errors}
+              schema={schema}
+            />
           </label>
         </div>
         <div className="registration__label-wrapper">
           <label>
             Password
-            <input className="registration__input" type="password" {...register('password')} />
+            <Input
+              className="registration__input"
+              name="password"
+              type="password"
+              register={register}
+              errors={errors}
+              schema={schema}
+            />
           </label>
         </div>
         <button type="submit">Регистрация</button>

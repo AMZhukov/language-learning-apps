@@ -31,6 +31,7 @@ async function start() {
     await mongoose.connect(process.env.LINK, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
     });
 
     app.listen(process.env.PORT, () => {
