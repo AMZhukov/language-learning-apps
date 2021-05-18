@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 import Test from './Components/Test/Test.jsx';
@@ -9,8 +9,12 @@ import { FinishTest } from './Components/Test/FinishTest';
 import { SignIn } from './Components/SignIn/SignIn';
 import './App.css';
 import './Components/basicStyle.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserAction } from './Redux/login/userAction';
+import { useAuth } from './hooks/useAuth.hook';
 
 function App() {
+  useAuth();
   return (
     <div className="App">
       <Header />

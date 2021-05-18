@@ -1,32 +1,16 @@
 import React from 'react';
-import { useInput } from '../../hooks/useInput';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { Input } from '../Input/Input';
+import { schema } from '../../Validation/registration';
+
+import { InputForReactHookForm as Input } from '../Input/InputForReactHookForm';
+import { LogoLink } from '../LogoLink/LogoLink';
 import 'normalize.css';
 import '../../layout.css';
 
 import './Registration.scss';
-import logo from '../../logo.svg';
-
-yup.setLocale({
-  string: {
-    /* eslint-disable no-template-curly-in-string */
-    min: 'Минимальное количество символов ${min}',
-    max: 'Максимальное количество символов ${max}',
-    /* eslint-enable no-template-curly-in-string */
-  },
-});
-
-const schema = yup.object().shape({
-  username: yup.string().required().max(15),
-  email: yup.string().email().required().max(30),
-  password: yup.string().min(4).max(15).required(),
-});
 
 export const Registration = () => {
   const {
@@ -45,11 +29,7 @@ export const Registration = () => {
 
   return (
     <main className="registration">
-      <div className="registration__logo-wrapper" role="banner">
-        <Link to="/">
-          <img src={logo} className="registration__logo" alt="logo" />
-        </Link>
-      </div>
+      <LogoLink />
       <h1>Регистрация</h1>
       <form onSubmit={handleSubmit(registration)} className="registration__form">
         <div className="registration__label-wrapper">
@@ -61,7 +41,6 @@ export const Registration = () => {
               type="text"
               register={register}
               errors={errors}
-              schema={schema}
             />
           </label>
         </div>
@@ -74,7 +53,6 @@ export const Registration = () => {
               type="email"
               register={register}
               errors={errors}
-              schema={schema}
             />
           </label>
         </div>
@@ -87,7 +65,6 @@ export const Registration = () => {
               type="password"
               register={register}
               errors={errors}
-              schema={schema}
             />
           </label>
         </div>

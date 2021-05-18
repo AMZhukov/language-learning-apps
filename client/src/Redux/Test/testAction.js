@@ -1,4 +1,4 @@
-import {ADD_CORRECT_ANSWER, CLEAR_NUMBER_CORRECT_ANSWER} from './testTypes';
+import { ADD_CORRECT_ANSWER, CLEAR_NUMBER_CORRECT_ANSWER } from './testTypes';
 
 export const addCorrectAnswer = () => {
   return (dispatch, getState) => {

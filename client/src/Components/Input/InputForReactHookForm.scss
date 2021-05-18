@@ -1,0 +1,18 @@
+.input__input {
+  width: 100%;
+  padding: 0 5px;
+  border-radius: 5px;
+  border: transparent 3px solid;
+}
+.input__input-error {
+  border: hsl(10, 80%, 55%) 3px solid;
+}
+.input__error-wrapper {
+  position: relative;
+}
+.input__error {
+  position: absolute;
+  font-weight: 200;
+  font-size: 1em;
+  color: hsl(10, 80%, 55%);
+}

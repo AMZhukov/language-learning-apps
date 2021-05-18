@@ -1,0 +1,39 @@
+.sign-in {
+  font-size: 22px;
+  width: 100%;
+  height: 100vh;
+  color: HSL(2, 0%, 98%);
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  justify-content: flex-start;
+  align-items: center;
+}
+.sign-in__form {
+  max-width: 440px;
+}
+.sign-in__label-wrapper {
+  padding: 26px 5px;
+  text-align: left;
+}
+.sign-in__label {
+  padding-bottom: 20px;
+}
+.sign-in__input {
+  width: 100%;
+  padding: 0 5px;
+  border-radius: 5px;
+  border: transparent 3px solid;
+}
+.sign-in__input-error {
+  border: hsl(10, 80%, 55%) 3px solid;
+}
+.sign-in__error-wrapper {
+  position: relative;
+}
+.sign-in__error {
+  position: absolute;
+  font-weight: 200;
+  font-size: 1em;
+  color: hsl(10, 80%, 55%);
+}
