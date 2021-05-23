@@ -9,34 +9,54 @@ import { FinishTest } from './Components/Test/FinishTest';
 import { SignIn } from './Components/SignIn/SignIn';
 import './App.css';
 import './Components/basicStyle.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUserAction } from './Redux/login/userAction';
+import { useSelector } from 'react-redux';
 import { useAuth } from './hooks/useAuth.hook';
 
 function App() {
   useAuth();
-  return (
-    <div className="App">
-      <Header />
-      <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
-        <Route path="/test">
-          <Test />
-        </Route>
-        <Route path="/sign-up">
-          <Registration />
-        </Route>
-        <Route path="/sign-in">
-          <SignIn />
-        </Route>
-        <Route path="/finishTest">
-          <FinishTest />
-        </Route>
-      </Switch>
-    </div>
-  );
+  const isAuth = useSelector((store) => {
+    return store.user.isAuth;
+  });
+  if (!isAuth) {
+    return (
+      <div className="App">
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
+          <Route path="/test">
+            <Test />
+          </Route>
+          <Route path="/sign-up">
+            <Registration />
+          </Route>
+          <Route path="/sign-in">
+            <SignIn />
+          </Route>
+          <Route path="/finishTest">
+            <FinishTest />
+          </Route>
+        </Switch>
+      </div>
+    );
+  } else {
+    return (
+      <div className="App">
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
+          <Route path="/test">
+            <Test />
+          </Route>
+          <Route path="/finishTest">
+            <FinishTest />
+          </Route>
+        </Switch>
+      </div>
+    );
+  }
 }
-
 export default App;

@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { setUserAction } from '../Redux/login/userAction';
+import { useHistory } from 'react-router-dom';
 
 export const useAuth = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const token = useSelector((store) => {
     return store.user.token;
@@ -11,20 +13,20 @@ export const useAuth = () => {
     return store.user.userId;
   });
   useEffect(() => {
-    console.log(token);
     if (!token && localStorage.getItem('token')) {
       dispatch(setUserAction(localStorage.getItem('userId'), localStorage.getItem('token')));
     }
   }, []);
 
   useEffect(() => {
-    console.log('Зашли в UseEffect');
     if (token) {
       localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);
+      history.push('/');
     } else {
-      localStorage.setItem('token', null);
-      localStorage.setItem('userId', null);
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      history.push('/');
     }
   }, [token, userId]);
 };

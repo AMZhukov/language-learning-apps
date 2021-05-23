@@ -1,0 +1,28 @@
+.nav {
+  padding: 20px 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.nav__container {
+  display: flex;
+  justify-content: space-between;
+}
+.nav__logo {
+  color: white;
+}
+.nav__actions {
+  display: flex;
+}
+.nav__action {
+  text-decoration: none;
+  color: #fafafa;
+  padding: 0 20px 0;
+}
+.nav__button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline;
+}

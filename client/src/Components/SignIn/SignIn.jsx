@@ -54,7 +54,6 @@ export const SignIn = () => {
         </div>
         <button type="submit">Войти</button>
       </form>
-      <button onClick={() => dispatch(logoutAction())}>Выйти</button>
     </main>
   );
 };

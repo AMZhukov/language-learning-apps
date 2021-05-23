@@ -8,6 +8,7 @@ const initialState = {
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
+      console.log(action.payload.token);
       return {
         ...state,
         userId: action.payload.userId,
