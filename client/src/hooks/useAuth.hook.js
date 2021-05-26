@@ -16,6 +16,7 @@ export const useAuth = () => {
     if (!token && localStorage.getItem('token')) {
       dispatch(setUserAction(localStorage.getItem('userId'), localStorage.getItem('token')));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -28,5 +29,6 @@ export const useAuth = () => {
       localStorage.removeItem('userId');
       history.push('/');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, userId]);
 };

@@ -11,6 +11,7 @@ import './App.css';
 import './Components/basicStyle.css';
 import { useSelector } from 'react-redux';
 import { useAuth } from './hooks/useAuth.hook';
+import { CreateCourse } from './Components/CreateCourse/CreateCourse';
 
 function App() {
   useAuth();
@@ -53,6 +54,9 @@ function App() {
           </Route>
           <Route path="/finishTest">
             <FinishTest />
+          </Route>
+          <Route path="/createCourse">
+            <CreateCourse />
           </Route>
         </Switch>
       </div>

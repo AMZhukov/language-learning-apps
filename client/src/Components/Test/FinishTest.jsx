@@ -14,7 +14,7 @@ export const FinishTest = () => {
   const descriptionResult = (result) => {
     if (result < 30) {
       return 'Ваши результаты плачевны. У Вас много работы впереди! Начинайте с самого начала';
-    } else if (result > 60) {
+    } else if (result < 60) {
       return 'Неплохо. Хорошее начало — половина дела! Начните изучение на среднем уровне сложности!';
     } else {
       return (
