@@ -2,8 +2,8 @@
   "name": "language-learning-app",
   "version": "1.0.0",
   "description": "This application is the future",
-  "private": true,
   "type": "module",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "startServer": "nodemon server.js --trace-deprecation ...",

@@ -34,7 +34,6 @@ const Header = () => {
           )}
         </div>
       </nav>
-
     </header>
   );
 };

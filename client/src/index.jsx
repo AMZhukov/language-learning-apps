@@ -11,15 +11,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'normalize.css';
 import './layout.css';
-import {BrowserRouter} from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
 
-const store = createStore(
-  rootReducer,
-  compose(
-    applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  ),
-);
+const isProd = process.env.NODE_ENV === 'production';
+
+const composeEnhancers = isProd ? compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 render(
   <React.StrictMode>

@@ -2,12 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import 'normalize.css';
 
-import { addCorrectAnswer, clearNumberCorrectAnswer } from '../../Redux/Test/testAction';
+import {
+  addCorrectAnswer,
+  changeNumbersQuestions,
+  clearNumberCorrectAnswer,
+} from '../../Redux/Test/testAction';
 import { ActiveTest } from './ActiveTest';
 import { useInput } from '../../hooks/useInput';
 import { Loading } from '../Loading/Loading';
-import './Test.css';
+import './Test.scss';
+import '../basicStyle.css';
 
 const Test = () => {
   const dispatch = useDispatch();
@@ -19,8 +25,14 @@ const Test = () => {
       setQuestions((prev) => [...prev, ...response.data]);
     }
     setTimeout(request, 500);
-    dispatch(clearNumberCorrectAnswer());
+    dispatch(clearNumberCorrectAnswer())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    dispatch(changeNumbersQuestions(questions.length));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [questions]);
 
   const [currentQuestion, nextQuestion] = useState(0);
 
@@ -36,7 +48,8 @@ const Test = () => {
     if (isFinished) {
       history.push('/finishTest');
     }
-  }, [history, isFinished]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFinished]);
 
   const checkIsFinished = () => {
     return currentQuestion + 1 === questions.length;
@@ -47,8 +60,8 @@ const Test = () => {
       setIsFinished(true);
     } else {
       nextQuestion(currentQuestion + 1);
+      setError('');
     }
-    setError('');
   };
 
   const checkingTheCorrectAnswer = (word) => {

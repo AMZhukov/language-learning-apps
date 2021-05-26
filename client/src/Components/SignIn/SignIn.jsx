@@ -6,8 +6,9 @@ import { schema } from '../../Validation/logIn';
 import { LogoLink } from '../LogoLink/LogoLink';
 import { InputForReactHookForm as Input } from '../Input/InputForReactHookForm';
 
-import { loginResponse, logoutAction } from '../../Redux/login/userAction';
+import { loginResponse } from '../../Redux/login/userAction';
 
+import 'normalize.css';
 import './SignIn.scss';
 
 export const SignIn = () => {

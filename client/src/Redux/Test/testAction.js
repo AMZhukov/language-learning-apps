@@ -1,4 +1,8 @@
-import { ADD_CORRECT_ANSWER, CLEAR_NUMBER_CORRECT_ANSWER } from './testTypes';
+import {
+  ADD_CORRECT_ANSWER,
+  CHANGE_NUMBERS_QUESTIONS,
+  CLEAR_NUMBER_CORRECT_ANSWER,
+} from './testTypes';
 
 export const addCorrectAnswer = () => {
   return (dispatch, getState) => {
@@ -9,4 +13,9 @@ export const addCorrectAnswer = () => {
 
 export const clearNumberCorrectAnswer = () => {
   return { type: CLEAR_NUMBER_CORRECT_ANSWER };
+};
+
+export const changeNumbersQuestions = (questions) => {
+  console.log(questions);
+  return { type: CHANGE_NUMBERS_QUESTIONS, payload: { numbersQuestions: questions } };
 };
