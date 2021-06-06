@@ -1,0 +1,28 @@
+@import '../basicStyle.css';
+
+.test {
+  background-color: mediumpurple;
+  height: 100vh;
+  margin: 0;
+}
+.test__container {
+}
+.test__header {
+  padding-top: 50px;
+  color: #fafafa;
+}
+.test__input {
+  background-color: gray;
+}
+
+.test__input-error {
+  background-color: #ffb1a2;
+}
+
+.test__input-truth {
+  background-color: #78bd7c;
+}
+
+.test__button-sub {
+  visibility: hidden;
+}

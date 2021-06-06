@@ -37,6 +37,11 @@ const Header = () => {
               Create Course
             </Link>
           )}
+          {isAuth && (
+            <Link className="nav__action" to="/createLesson">
+              Create Lesson
+            </Link>
+          )}
         </div>
       </nav>
     </header>

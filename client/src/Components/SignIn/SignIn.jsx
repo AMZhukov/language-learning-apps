@@ -1,17 +1,21 @@
 import React from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schema } from '../../Validation/logIn';
-import { LogoLink } from '../LogoLink/LogoLink';
-import { InputForReactHookForm as Input } from '../Input/InputForReactHookForm';
 
-import { loginResponse } from '../../Redux/login/userAction';
+import { setUserAction } from '../../Redux/login/userAction';
+import { schema } from '../../Validation/logIn';
+
+import { InputForReactHookForm as Input } from '../Input/InputForReactHookForm';
+import { LogoLink } from '../LogoLink/LogoLink';
 
 import 'normalize.css';
 import './SignIn.scss';
 
 export const SignIn = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const {
@@ -20,8 +24,14 @@ export const SignIn = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
 
-  const loginHangler = (loginData) => {
-    dispatch(loginResponse(loginData));
+  const loginHangler = async (loginData) => {
+    try {
+      const response = await axios.post('/api/sign-in', { ...loginData });
+      dispatch(setUserAction(response.data.userId, response.data.token));
+      history.push('/');
+    } catch (error) {
+      console.log(error.response.data);
+    }
   };
 
   return (

@@ -1,0 +1,21 @@
+@import '../basicStyle.css';
+
+.create-course {
+  padding: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+.create-course .wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+.create-course label {
+  padding: 20px;
+  text-align: left;
+}
+.create-course input {
+  width: 100%;
+  margin-top: 10px;
+}

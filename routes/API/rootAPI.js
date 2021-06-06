@@ -9,6 +9,10 @@ import { login } from './login.js';
 
 import { testQuestions } from './testQuestions.js';
 import { createTestQuestion } from './createTestQuestion.js';
+import { courseList } from './courseList.js';
+import { createLesson } from './createLesson.js';
+import { changeCourse } from './changeCourse.js';
+import { deleteCourse } from './deleteCourse.js';
 
 export const rootAPI = Router();
 
@@ -19,3 +23,11 @@ rootAPI.post('/sign-in', login);
 rootAPI.get('/testQuestions', testQuestions);
 
 rootAPI.post('/createTestQuestion', createTestQuestion);
+
+rootAPI.get('/courseList', courseList);
+
+rootAPI.post('/createLesson', createLesson);
+
+rootAPI.put('/changeCourse', changeCourse);
+
+rootAPI.delete('/deleteCourse/:id', deleteCourse);

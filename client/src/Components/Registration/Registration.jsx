@@ -1,18 +1,25 @@
 import React from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { setUserAction } from '../../Redux/login/userAction';
 import { schema } from '../../Validation/registration';
 
 import { InputForReactHookForm as Input } from '../Input/InputForReactHookForm';
 import { LogoLink } from '../LogoLink/LogoLink';
+
 import 'normalize.css';
 import '../../layout.css';
 
 import './Registration.scss';
 
 export const Registration = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -22,6 +29,8 @@ export const Registration = () => {
   const registration = async (registrationData) => {
     try {
       const response = await axios.post('/api/registration', { registrationData });
+      dispatch(setUserAction(response.data.userId, response.data.token));
+      history.push('/');
     } catch (error) {
       console.log(error.response.data);
     }

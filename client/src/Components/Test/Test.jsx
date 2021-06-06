@@ -66,7 +66,7 @@ const Test = () => {
 
   const checkingTheCorrectAnswer = (word) => {
     for (let i = 0; i < questions[currentQuestion].variantsCorrectAnswers.length; i += 1) {
-      if (word === questions[currentQuestion].variantsCorrectAnswers[i]) {
+      if (word.toLowerCase().trim() === questions[currentQuestion].variantsCorrectAnswers[i]) {
         return true;
       }
     }

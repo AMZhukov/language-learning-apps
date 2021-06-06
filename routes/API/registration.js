@@ -1,6 +1,7 @@
 // eslint-disable-line
 import bcryptjs from 'bcryptjs';
 import { User } from '../../models/User.js';
+import { createToken } from './createToken.js';
 
 export const registration = async (req, res) => {
   const { username, email, password } = req.body.registrationData;
@@ -10,10 +11,18 @@ export const registration = async (req, res) => {
       return res.status(400).json('На данную почту уже зарегистрирован аккаунт');
     }
     const hashedPassword = await bcryptjs.hash(password, 12);
-    const model = new User({ username, email, password: hashedPassword });
-    await model.save();
+    const user = new User({ username, email, password: hashedPassword });
+    // eslint-disable-next-line consistent-return
+    await user.save((error) => {
+      if (error) {
+        return res.status(500).json(`${error}`);
+      }
+    });
+    const token = createToken(user.id);
+    return res
+      .status(200)
+      .json({ token, userId: user.id, message: 'Логин успешно создан. Успешный вход с систему' });
   } catch (error) {
     return res.status(501).json(`${error}`);
   }
-  return res.status(201).json('Логин успешно создан');
 };
