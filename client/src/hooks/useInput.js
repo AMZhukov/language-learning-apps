@@ -9,5 +9,5 @@ export function useInput(initialValue) {
     return setValue('');
   };
 
-  return { onChange, reset, value };
+  return { onChange, reset, value, setValue };
 }

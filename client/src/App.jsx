@@ -64,6 +64,9 @@ function App() {
           <Route exact path="/createLesson">
             <CreateLesson />
           </Route>
+          <Route exact path="/createLesson/:_id">
+            <CreateLesson />
+          </Route>
         </Switch>
       </div>
     );

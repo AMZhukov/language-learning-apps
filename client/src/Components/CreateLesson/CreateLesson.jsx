@@ -1,27 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useHistory, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { schema } from '../../Validation/createLesson';
 import { InputForReactHookForm as Input } from '../Input/InputForReactHookForm';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 import 'normalize.css';
 import '../basicStyle.css';
 import '../SignIn/SignIn.scss';
 
 export const CreateLesson = () => {
+  const { _id } = useParams();
+  const history = useHistory();
+  const [isCreateLesson, setIsCreateLesson] = useState(true);
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema), mode: 'all' });
 
-  const loginHangler = async (newLesson) => {
-    let response;
+  useEffect(() => {
+    if (_id) {
+      setIsCreateLesson(false);
+      (async function () {
+        try {
+          const { data } = await axios.get(`/api/lesson/${_id}`);
+          for (let key in data) {
+            setValue(key, data[key]);
+          }
+        } catch (error) {
+          console.log(error.response.data);
+        }
+      })();
+    }
+  }, [_id, setValue]);
+
+  const createOrEditLesson = async (newLesson) => {
+    console.log(newLesson);
     try {
-      response = await axios.post('/api/createLesson', { newLesson });
-      console.log(response);
+      if (isCreateLesson) {
+        await axios.post('/api/createLesson', { newLesson });
+      } else {
+        await axios.put('/api/editLesson', { newLesson });
+        setTimeout(() => {
+          history.push('/CreateLesson');
+        }, 2000);
+      }
     } catch (error) {
       console.log(error.response.data);
     }
@@ -30,8 +57,8 @@ export const CreateLesson = () => {
   return (
     <div className="container" style={{ margin: '0 auto' }}>
       <main className="sign-in">
-        <h1>Вход в учётную запись</h1>
-        <form onSubmit={handleSubmit(loginHangler)} className="sign-in__form">
+        <h1>{isCreateLesson ? 'Создание нового урока' : 'Редактирование урока'}</h1>
+        <form onSubmit={handleSubmit(createOrEditLesson)} className="sign-in__form">
           <div className="registration__label-wrapper">
             <label className="registration__label">
               Номер главы
@@ -92,7 +119,14 @@ export const CreateLesson = () => {
               />
             </label>
           </div>
-          <button type="submit">Создать урок</button>
+          <Input
+            name="_id"
+            className="registration__input registration__input_invisible"
+            type="text"
+            register={register}
+            errors={errors}
+          />
+          <button type="submit">{isCreateLesson ? 'Создать урок' : 'Сохранить изменения'}</button>
         </form>
       </main>
     </div>

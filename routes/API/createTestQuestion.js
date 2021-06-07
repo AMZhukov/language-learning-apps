@@ -1,6 +1,5 @@
-/* eslint-disable */
+// eslint-disable-line
 import { TestQuestions } from '../../models/TestQuestion.js';
-/* eslint-enable */
 
 export const createTestQuestion = async (req, res) => {
   const { question, variantsCorrectAnswers } = req.body;

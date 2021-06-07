@@ -1,6 +1,5 @@
-/* eslint-disable */
+// eslint-disable-line
 import { Lesson } from '../../models/Lesson.js';
-/* eslint-enable */
 
 export const createLesson = async (req, res) => {
   try {
