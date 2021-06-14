@@ -15,6 +15,7 @@ import { changeCourse } from './changeCourse.js';
 import { deleteCourse } from './deleteCourse.js';
 import { lesson } from './lesson.js';
 import { editLesson } from './editLesson.js';
+import { editLessonContent } from './editLessonContent.js';
 
 export const rootAPI = Router();
 
@@ -35,5 +36,7 @@ rootAPI.put('/changeCourse', changeCourse);
 rootAPI.delete('/deleteCourse/:id', deleteCourse);
 
 rootAPI.get('/lesson/:id', lesson);
+
+rootAPI.post('./lesson/:id', editLessonContent);
 
 rootAPI.put('/editLesson', editLesson);

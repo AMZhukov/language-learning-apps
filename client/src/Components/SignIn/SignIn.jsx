@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { setUserAction } from '../../Redux/login/userAction';
 import { schema } from '../../Validation/logIn';
 
-import { InputForReactHookForm as Input } from '../Input/InputForReactHookForm';
+import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm.jsx';
 import { LogoLink } from '../LogoLink/LogoLink';
 
 import 'normalize.css';

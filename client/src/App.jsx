@@ -10,66 +10,35 @@ import { SignIn } from './Components/SignIn/SignIn';
 import './App.css';
 import './Components/basicStyle.css';
 import { useSelector } from 'react-redux';
-import { useAuth } from './hooks/useAuth.hook';
+import { useAuth } from './hooks/useAuth.hook.jsx';
 import { CreateCourse } from './Components/CreateCourse/CreateCourse';
 import { ListOfCourses } from './Components/CourseList/ListOfCourses';
 import { CreateLesson } from './Components/CreateLesson/CreateLesson';
+import { Lesson } from './Components/Lesson/Lesson';
 
 function App() {
   useAuth();
   const isAuth = useSelector((store) => {
     return store.user.isAuth;
   });
-  if (!isAuth) {
-    return (
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route exact path="/">
-            <Main />
-          </Route>
-          <Route exact path="/test">
-            <Test />
-          </Route>
-          <Route path="/sign-up">
-            <Registration />
-          </Route>
-          <Route path="/sign-in">
-            <SignIn />
-          </Route>
-          <Route path="/finishTest">
-            <FinishTest />
-          </Route>
-        </Switch>
-      </div>
-    );
-  } else {
-    return (
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route exact path="/">
-            <Main />
-            <ListOfCourses />
-          </Route>
-          <Route path="/test">
-            <Test />
-          </Route>
-          <Route path="/finishTest">
-            <FinishTest />
-          </Route>
-          <Route path="/createCourse">
-            <CreateCourse />
-          </Route>
-          <Route exact path="/createLesson">
-            <CreateLesson />
-          </Route>
-          <Route exact path="/createLesson/:_id">
-            <CreateLesson />
-          </Route>
-        </Switch>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <Header />
+      <Switch>
+        <Route exact path="/test" component={Test} />
+        {!isAuth && <Route path="/sign-up" component={Registration} />}
+        {!isAuth && <Route path="/sign-in" component={SignIn} />}
+        <Route path="/finishTest" component={FinishTest} />
+        {isAuth && <Route exact path="/createCourse" component={CreateCourse} />}
+        {isAuth && <Route exact path="/createLesson" component={CreateLesson} />}
+        {isAuth && <Route path="/editLesson/:_id" component={CreateLesson} />}
+        {isAuth && <Route path="/lesson/:_id" component={Lesson} />}
+        <Route path="/">
+          <Main />
+          <ListOfCourses />
+        </Route>
+      </Switch>
+    </div>
+  );
 }
 export default App;

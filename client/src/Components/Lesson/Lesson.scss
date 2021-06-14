@@ -1,0 +1,20 @@
+@import '../basicStyle.css';
+.lesson {
+  font-size: 50px;
+}
+.lesson__color-yellow {
+  color: yellow;
+}
+
+.lesson__button {
+  width: 50px;
+  height: 50px;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+}
+.lesson__button:active {
+  outline: #0b2f65;
+  //border: #e84f30 2px solid;
+  background-color: brown;
+}

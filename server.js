@@ -1,3 +1,4 @@
+// eslint-disable-line
 import express from 'express';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -11,6 +12,7 @@ const __dirname = path.resolve();
 
 const isProd = process.env.NODE_ENV === 'production';
 dotenv.config({ path: isProd ? '.env.prod' : '.env.dev' });
+// eslint-disable-next-line no-console
 console.log(`Env loading ${isProd ? 'PROD' : 'DEV'} file`);
 
 app.use(express.json());
@@ -32,16 +34,19 @@ async function start() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: false,
     });
 
     app.listen(process.env.PORT, () => {
       result = `Server has been started ${process.env.PORT}`;
+      // eslint-disable-next-line no-console
       console.log(result);
     });
   } catch (error) {
     result = `Server error ${error.message}`;
     process.exit(1);
   }
+  // eslint-disable-next-line no-console
   return console.log(result);
 }
 

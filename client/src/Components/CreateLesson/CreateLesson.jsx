@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { schema } from '../../Validation/createLesson';
-import { InputForReactHookForm as Input } from '../Input/InputForReactHookForm';
+import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm.jsx';
 
 import 'normalize.css';
 import '../basicStyle.css';
@@ -29,7 +29,9 @@ export const CreateLesson = () => {
         try {
           const { data } = await axios.get(`/api/lesson/${_id}`);
           for (let key in data) {
-            setValue(key, data[key]);
+            if (data.hasOwnProperty(key)) {
+              setValue(key, data[key]);
+            }
           }
         } catch (error) {
           console.log(error.response.data);

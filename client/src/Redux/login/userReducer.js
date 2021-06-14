@@ -3,22 +3,24 @@ import { LOGOUT, SET_USER } from './userTypes';
 const initialState = {
   currentUser: {},
   isAuth: false,
+  isLogout: false,
+  token: null,
 };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
-      console.log(action.payload.token);
       return {
         ...state,
-        userId: action.payload.userId,
+        isLogout: false,
         token: action.payload.token,
         isAuth: true,
       };
     case LOGOUT:
+      console.log('is log out')
       return {
         ...state,
-        userId: null,
+        isLogout: true,
         token: null,
         isAuth: false,
       };
