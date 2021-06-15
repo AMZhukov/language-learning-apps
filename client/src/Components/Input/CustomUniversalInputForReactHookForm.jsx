@@ -49,6 +49,7 @@ const CustomUniversalInputForReactHookForm = ({
     <>
       {typeInput && (
         <input
+          key={name}
           name={name}
           className={'input__input ' + className + classNameError}
           type={type}
@@ -60,6 +61,7 @@ const CustomUniversalInputForReactHookForm = ({
       )}
       {typeTextarea && (
         <textarea
+          key={name}
           name={name}
           className={'input__input ' + className + classNameError}
           {...register(name)}
@@ -70,6 +72,7 @@ const CustomUniversalInputForReactHookForm = ({
       )}
       {typeSelect && (
         <select
+          key={name}
           name={name}
           className={'input__input ' + className + classNameError}
           {...register(name)}

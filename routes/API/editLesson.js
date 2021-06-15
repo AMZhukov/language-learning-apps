@@ -27,7 +27,6 @@ export const editLesson = async (req, res) => {
 
     return res.status(201).json('Урок успешно скорректирован');
   } catch (error) {
-    console.log(error);
     return res.status(501).json(`${error}`);
   }
 };

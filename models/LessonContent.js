@@ -6,4 +6,4 @@ const schema = new mongoose.Schema({
   content: { type: Array, require: true },
 });
 
-export const LessonContent = mongoose.model('Lesson', schema);
+export const LessonContent = mongoose.model('LessonContent', schema);

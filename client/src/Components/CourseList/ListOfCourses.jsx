@@ -17,7 +17,7 @@ export const ListOfCourses = () => {
           setCourseList(data);
         }
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
       }
     };
     fetchData();
@@ -33,7 +33,7 @@ export const ListOfCourses = () => {
         return [...newState];
       });
     } catch (error) {
-      console.log(error.data.response);
+      console.log(error.response.data);
     }
   };
 

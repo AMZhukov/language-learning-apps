@@ -1,6 +1,4 @@
-/* eslint-disable */
-/* eslint-enable */
-
+// eslint-disable-line
 import { Lesson } from '../../models/Lesson.js';
 
 export const changeCourse = async (req, res) => {
