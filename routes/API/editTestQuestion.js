@@ -2,7 +2,7 @@
 import { TestQuestions } from '../../models/TestQuestion.js';
 import { Lesson } from '../../models/Lesson.js';
 
-export const createTestQuestion = async (req, res) => {
+export const editTestQuestion = async (req, res) => {
   const { _id } = req.params;
   const { questions } = req.body;
   try {
@@ -15,8 +15,18 @@ export const createTestQuestion = async (req, res) => {
     if (!lesson) {
       return res.status(404).json('Данный урок в базе не найден');
     }
-    const model = new TestQuestions({ questions, _id });
-    await model.save();
+
+    TestQuestions.findByIdAndUpdate(
+      _id,
+      { questions },
+      { runValidators: true },
+      // eslint-disable-next-line consistent-return
+      (error) => {
+        if (error) {
+          return res.status(500).json(`${error}`);
+        }
+      },
+    );
     return res.status(200).json('All right');
   } catch (error) {
     return res.status(501).json(`${error}`);

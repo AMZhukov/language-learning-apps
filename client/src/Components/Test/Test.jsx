@@ -1,72 +1,67 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import 'normalize.css';
 
-import {
-  addCorrectAnswer,
-  changeNumbersQuestions,
-  clearNumberCorrectAnswer,
-} from '../../Redux/Test/testAction';
 import { ActiveTest } from './ActiveTest';
+import { FinishTest } from './FinishTest';
 import { useInput } from '../../hooks/useInput';
 import { Loading } from '../Loading/Loading';
 import './Test.scss';
 import '../basicStyle.css';
+import { useParams } from 'react-router-dom';
 
 const Test = () => {
-  const dispatch = useDispatch();
-  const answerInput = useInput('');
+  const { _id } = useParams();
+  const [questionNumber, setQuestionNumber] = useState(0);
+  const [buttonNewQuestion, setButtonNextQuestion] = useState(false);
   const [questions, setQuestions] = useState([]);
-  useEffect(() => {
-    async function request() {
-      const response = await axios.get('/api/testQuestions');
-      setQuestions((prev) => [...prev, ...response.data]);
-    }
-    setTimeout(request, 500);
-    dispatch(clearNumberCorrectAnswer())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    dispatch(changeNumbersQuestions(questions.length));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [questions]);
-
-  const [currentQuestion, nextQuestion] = useState(0);
+  const answerInput = useInput('');
 
   const [isError, setError] = useState('');
 
   const [isFinished, setIsFinished] = useState(false);
 
   const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState(0);
-
-  const history = useHistory();
-
+  console.log(questions);
   useEffect(() => {
-    if (isFinished) {
-      history.push('/finishTest');
+    async function responseLessonTest() {
+      try {
+        const { data } = await axios.get(`/api/testQuestions/${_id}`);
+        if (data) {
+          setQuestions((prevState) => {
+            return [...prevState, ...data.questions];
+          });
+        }
+      } catch (error) {
+        console.log(error.response.data);
+      }
     }
+    setTimeout(responseLessonTest, 500);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFinished]);
+  }, []);
 
   const checkIsFinished = () => {
-    return currentQuestion + 1 === questions.length;
+    return questionNumber + 1 === questions.length;
   };
 
-  const nextAnswer = () => {
+  const nextAnswer = async () => {
     if (checkIsFinished()) {
+      try {
+        await axios.post(`/api/testQuestions/${_id}`);
+      } catch (error) {
+        console.log(error.response.data);
+      }
       setIsFinished(true);
     } else {
-      nextQuestion(currentQuestion + 1);
+      setQuestionNumber((prevNumber) => prevNumber + 1);
+      setButtonNextQuestion(false);
       setError('');
     }
   };
 
   const checkingTheCorrectAnswer = (word) => {
-    for (let i = 0; i < questions[currentQuestion].variantsCorrectAnswers.length; i += 1) {
-      if (word.toLowerCase().trim() === questions[currentQuestion].variantsCorrectAnswers[i]) {
+    for (let i = 0; i < questions[questionNumber].variantsCorrectAnswers.length; i += 1) {
+      if (word.toLowerCase().trim() === questions[questionNumber].variantsCorrectAnswers[i]) {
         return true;
       }
     }
@@ -77,31 +72,41 @@ const Test = () => {
     event.preventDefault();
     if (checkingTheCorrectAnswer(answerInput.value)) {
       setNumberOfCorrectAnswers(numberOfCorrectAnswers + 1);
-      dispatch(addCorrectAnswer());
       setError('test__input-truth');
     } else {
-      setNumberOfCorrectAnswers(numberOfCorrectAnswers);
       setError('test__input-error');
     }
-    setTimeout(() => {
-      answerInput.reset();
-      nextAnswer();
-    }, 1000);
+    setButtonNextQuestion(true);
   };
 
   return (
     <>
       <div className="test">
         <div className="test__container container">
-          {questions.length === 0 ? (
-            <Loading />
-          ) : (
-            <ActiveTest
-              answerInput={answerInput}
-              checkWords={checkWords}
-              currentQuestion={currentQuestion}
-              isError={isError}
-              questions={questions}
+          {
+            !isFinished && (
+              <>
+                {' '}
+                {questions.length === 0 ? (
+                  <Loading />
+                ) : (
+                  <ActiveTest
+                    answerInput={answerInput}
+                    checkWords={checkWords}
+                    questionNumber={questionNumber}
+                    isError={isError}
+                    questions={questions}
+                    buttonNewQuestion={buttonNewQuestion}
+                    nextAnswer={nextAnswer}
+                  />
+                )}
+              </>
+            )
+          }
+          {isFinished && (
+            <FinishTest
+              numberOfCorrectAnswers={numberOfCorrectAnswers}
+              numbersQuestions={questions.length}
             />
           )}
         </div>

@@ -4,9 +4,9 @@
 import { Lesson } from '../../models/Lesson.js';
 
 export const deleteCourse = async (req, res) => {
-  const { id } = req.params;
+  const { _id } = req.params;
   try {
-    await Lesson.deleteOne({ id });
+    await Lesson.deleteOne({ _id });
     return res.status(203).json('Deleted');
   } catch (error) {
     return res.status(501).json(`${error}`);

@@ -3,10 +3,10 @@ import { LessonContent } from '../../models/LessonContent.js';
 import { Lesson } from '../../models/Lesson.js';
 
 export const contentLesson = async (req, res) => {
-  const { id } = req.params;
+  const { _id } = req.params;
   try {
     // eslint-disable-next-line consistent-return
-    const lesson = await Lesson.findOne({ _id: id }, (error) => {
+    const lesson = await Lesson.findOne({ _id }, (error) => {
       if (error) {
         return res.status(500).json(`${error}`);
       }
@@ -15,7 +15,7 @@ export const contentLesson = async (req, res) => {
       return res.status(404).json('Данный урок в базе не найден');
     }
     // eslint-disable-next-line consistent-return
-    const currentLesson = await LessonContent.findOne({ _id: id }, (error) => {
+    const currentLesson = await LessonContent.findOne({ _id }, (error) => {
       if (error) {
         return res.status(500).json(`${error}`);
       }

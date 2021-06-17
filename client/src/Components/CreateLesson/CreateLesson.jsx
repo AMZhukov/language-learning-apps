@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -28,6 +28,7 @@ export const CreateLesson = () => {
       (async function () {
         try {
           const { data } = await axios.get(`/api/lesson/${_id}`);
+          console.log(data);
           for (let key in data) {
             if (data.hasOwnProperty(key)) {
               setValue(key, data[key]);
@@ -48,7 +49,7 @@ export const CreateLesson = () => {
       } else {
         await axios.put('/api/editLesson', { newLesson });
         setTimeout(() => {
-          history.push('/CreateLesson');
+          history.push(`/createTest/${_id}`);
         }, 2000);
       }
     } catch (error) {
@@ -57,7 +58,7 @@ export const CreateLesson = () => {
   };
 
   return (
-    <div className="container" style={{ margin: '0 auto' }}>
+    <div className="container" style={{ margin: '0 auto', paddingTop: '100px' }}>
       <main className="sign-in">
         <h1>{isCreateLesson ? 'Создание нового урока' : 'Редактирование урока'}</h1>
         <form onSubmit={handleSubmit(createOrEditLesson)} className="sign-in__form">
@@ -129,6 +130,12 @@ export const CreateLesson = () => {
             errors={errors}
           />
           <button type="submit">{isCreateLesson ? 'Создать урок' : 'Сохранить изменения'}</button>
+
+          <div style={{ paddingTop: '20px' }}>
+            <Link style={{ color: 'white' }} to={`/createLessonContent/${_id}`}>
+              Редактировать контент лекции
+            </Link>
+          </div>
         </form>
       </main>
     </div>

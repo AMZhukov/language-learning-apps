@@ -17,6 +17,8 @@ import { contentLesson } from './contentLesson.js';
 import { editLesson } from './editLesson.js';
 import { createLessonContent } from './createLessonContent.js';
 import { editLessonContent } from './editLessonContent.js';
+import { lesson } from './lesson.js';
+import { editTestQuestion } from './editTestQuestion.js';
 
 export const rootAPI = Router();
 
@@ -24,11 +26,13 @@ rootAPI.post('/registration', validateRequest(schema), registration);
 
 rootAPI.post('/sign-in', login);
 
-rootAPI.get('/testQuestions', testQuestions);
+rootAPI.get('/testQuestions/:_id', testQuestions);
 
-rootAPI.post('/createTestQuestion', createTestQuestion);
+rootAPI.post('/createTestQuestion/:_id', createTestQuestion);
 
-rootAPI.get('/courseList', courseList);
+rootAPI.put('/createTestQuestion/:_id', editTestQuestion);
+
+rootAPI.get('/lesson/:_id', lesson);
 
 rootAPI.post('/createLesson', createLesson);
 
@@ -36,10 +40,12 @@ rootAPI.put('/changeCourse', changeCourse);
 
 rootAPI.put('/editLesson', editLesson);
 
-rootAPI.delete('/deleteCourse/:id', deleteCourse);
+rootAPI.delete('/deleteCourse/:_id', deleteCourse);
 
-rootAPI.get('/lesson/:id', contentLesson);
+rootAPI.get('/courseList', courseList);
 
-rootAPI.post('/lesson/:id', createLessonContent);
+rootAPI.get('/lessonContent/:_id', contentLesson);
 
-rootAPI.put('/lesson/:_id', editLessonContent);
+rootAPI.post('/lessonContent/:_id', createLessonContent);
+
+rootAPI.put('/lessonContent/:_id', editLessonContent);

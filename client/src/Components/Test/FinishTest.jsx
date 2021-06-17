@@ -1,14 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
-// eslint-disable-next-line react/prop-types
-export const FinishTest = () => {
-  const numberOfCorrectAnswers = useSelector((store) => {
-    return store.test.numberOfCorrectAnswers;
-  });
-  const numbersQuestions = useSelector((store) => {
-    return store.test.numbersQuestions;
-  });
+export const FinishTest = ({numberOfCorrectAnswers, numbersQuestions}) => {
+
   const result = Math.floor((numberOfCorrectAnswers / numbersQuestions) * 100);
 
   const descriptionResult = (result) => {
@@ -27,12 +20,13 @@ export const FinishTest = () => {
   return (
     <div className="test">
       <p className="test__header">
-        Вы набрали &nbsp;
-        {numberOfCorrectAnswers}
-        &nbsp; баллов из &nbsp;
-        {numbersQuestions}. Результат &nbsp;
-        {result}
-        &nbsp; %
+        Вы набрали
+        {' ' + numberOfCorrectAnswers + ' '}
+        баллов из
+        {' ' + numbersQuestions + ' '}
+        . Результат
+        {' ' + result + ' '}
+        %
       </p>
       <p className="test__header">{descriptionResult(result)}</p>
     </div>

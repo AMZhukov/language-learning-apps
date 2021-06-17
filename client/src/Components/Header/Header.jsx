@@ -33,7 +33,7 @@ const Header = () => {
             </button>
           )}
           {isAuth && (
-            <Link className="nav__action" to="/createCourse">
+            <Link className="nav__action" to="/CreateTest">
               Create Course
             </Link>
           )}
