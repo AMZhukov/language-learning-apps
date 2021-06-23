@@ -1,5 +1,5 @@
 .App {
-
+  position: relative;
   background-image: linear-gradient(
     to bottom right,
     hsl(216, 80%, 22%) 0,
@@ -7,6 +7,9 @@
     hsl(251, 58%, 41%) 70%,
     hsl(297, 57%, 29%) 100%
   );
+  background-attachment: scroll;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .App {

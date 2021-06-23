@@ -23,7 +23,7 @@ export const FormNewContent = ({ setFormNewContent, setLesson }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentValue]);
-  const submit = async ( registrationData ) => {
+  const submit = async (registrationData) => {
     try {
       console.log(registrationData);
       setFormNewContent(false);
@@ -36,12 +36,14 @@ export const FormNewContent = ({ setFormNewContent, setLesson }) => {
   };
   const options = [
     { name: 'div', value: 'div' },
-    { name: 'image', value: 'image' },
+    { name: 'image', value: 'img' },
     { name: 'p', value: 'p' },
     { name: 'h1', value: 'h1' },
     { name: 'h2', value: 'h2' },
     { name: 'h3', value: 'h3' },
     { name: 'h4', value: 'h4' },
+    { name: 'h5', value: 'h5' },
+    { name: 'h6', value: 'h6' },
   ];
 
   return (

@@ -5,12 +5,11 @@
 .list-of-courses__wrapper {
   padding: 15px 20px 15px;
   display: grid;
-  grid-template-columns: 100px 1fr 50px;
+  grid-template-columns: 150px 1fr 50px;
   border-bottom: 2px solid black;
-  background-color: hsl(2, 40%, 50%);
 }
 
-//noinspection CssMissingComma
+//noinspection CssMissingComma6
 .list-of-courses__wrapper:hover
   > .list-of-courses__actions
   > .list-of-courses_button-hover-opacity {
@@ -19,21 +18,25 @@
 
 .list-of-courses__image-wrapper {
   width: 150px;
-  height: 150px;
+  height: 100px;
 }
 .list-of-courses__image {
   width: 100%;
   height: 100%;
 }
-.list-of-courses__description-wrapper {
+.list-of-courses__description {
   padding: 0 30px;
 }
-.list-of-courses__description {
+.list-of-courses__link {
   text-align: left;
   padding-bottom: 15px;
   text-decoration: none;
   color: hsl(230, 90%, 90%);
   display: block;
+}
+.list-of-courses__description_has-height-weight {
+  height: 100%;
+  width: 100%;
 }
 .list-of-courses__elem {
 }

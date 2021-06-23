@@ -1,5 +1,8 @@
 import React from 'react';
 
+import 'normalize.css';
+import '../basicStyle.css';
+
 /* eslint-disable react/prop-types */
 export const ActiveTest = ({
   questionNumber,
@@ -9,37 +12,40 @@ export const ActiveTest = ({
   answerInput,
   buttonNewQuestion,
   nextAnswer,
-  // refAnswerInput,
-  /* eslint-enable react/prop-types */
 }) => {
+
   return (
-    <form onSubmit={(event) => checkWords(event)}>
-      <p className="test__header">
-        {questionNumber + 1}.{/* eslint-disable-next-line react/prop-types */}
-        {questions[questionNumber].question}?
-      </p>
-      <input
-        // ref={refAnswerInput}
-        onChange={answerInput.onChange}
-        value={answerInput.value}
-        className={`test__input ${isError}`}
-        type="text"
-        // onBlur={(event) => checkWords(event)}
-      />
-      {!buttonNewQuestion && (
-        <div>
-          <button type="submit" className="test__button-sub">
-            Ответить
-          </button>
+    <>
+      <form onSubmit={(event) => checkWords(event)} className="test__form">
+        <div className="test__form-container">
+          <p className="test__p">
+            Вопрос {questionNumber + 1} из {questions.length}
+          </p>
+          <p className="test__p">{questions[questionNumber].question}</p>
+          <div className="test__input-wrapper">
+            <input
+              onChange={answerInput.onChange}
+              value={answerInput.value}
+              className={`test__input ${isError}`}
+              type="text"
+            />
+          </div>
+          {!buttonNewQuestion && (
+            <div>
+              <button type="submit" className="test__button">
+                Проверить
+              </button>
+            </div>
+          )}
+          {buttonNewQuestion && (
+            <div>
+              <button onClick={nextAnswer} type="button" className="test__button">
+                Перейти к следующему вопросу
+              </button>
+            </div>
+          )}
         </div>
-      )}
-      {buttonNewQuestion && (
-        <div>
-          <button onClick={nextAnswer} type="button" className="test__button-sub">
-            Перейти к следующему вопросу
-          </button>
-        </div>
-      )}
-    </form>
+      </form>
+    </>
   );
 };

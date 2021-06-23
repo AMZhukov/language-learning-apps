@@ -1,0 +1,17 @@
+.sign-in-sign-up {
+  padding-top: 20px;
+  width: 100%;
+  font-size: 22px;
+  height: 100vh;
+  color: hsl(2, 0%, 98%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.sign-in-sign-up__p {
+  padding-bottom: 50px;
+}
+.sign-in-sign-up__link {
+  color: inherit;
+}

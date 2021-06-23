@@ -17,6 +17,7 @@ export const CreateLessonContent = () => {
     (async function responseContentLesson() {
       try {
         const { data } = await axios.get(`/api/lessonContent/${_id}`);
+        console.dir(data);
         if (data) {
           setIsPut(true);
           setLesson((prevState) => {
@@ -45,8 +46,20 @@ export const CreateLessonContent = () => {
     })();
   };
 
-  const createContent = ({ tag: Tag, className, content }, index) => {
+  const createContent = ({ tag: Tag, className, content, linkToImage, altToImage }, index) => {
     const key = `${_id}` + index;
+    if (Tag === 'img') {
+      return (
+        <div
+          className={className}
+          data-id={key}
+          key={key}
+          dangerouslySetInnerHTML={{
+            __html: `<figure> <img src=${linkToImage} alt=${altToImage}> <figcaption>${content}</figcaption></figure>`,
+          }}
+        />
+      );
+    }
     return (
       <Tag
         className={className}

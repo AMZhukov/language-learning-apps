@@ -1,29 +1,53 @@
+@import '~normalize.css';
 @import '../basicStyle.css';
 
 .test {
-  background-color: mediumpurple;
+  background-color: hsl(10, 10%, 10%);
   height: 100vh;
   margin: 0;
 }
 .test__container {
+  padding-top: 100px;
 }
-.test__header {
-  padding-top: 50px;
-  color: #fafafa;
+.test__form {
+  margin: 0 auto;
+  max-width: 750px;
+  padding: 40px;
+  background-color: hsl(203, 5%, 29%);
+}
+.test__form-container {
+  max-width: 320px;
+  margin: 0 auto;
+}
+.test__p {
+  color: hsl(0, 0%, 98%);
+}
+.test__input-wrapper {
+  padding: 24px 0;
 }
 .test__input {
   background-color: gray;
+  width: 100%;
+  border: none;
 }
-
+.test__input_without-outline:focus-visible{
+  outline: none;
+}
 .test__input-error {
   background-color: #ffb1a2;
 }
-
 .test__input-truth {
   background-color: #78bd7c;
 }
 
-.test__button-sub {
-  background-color: burlywood;
-  border: none;
+.test__button {
+  width: 100%;
+  border: 4px hsl(204, 98%, 34%) solid;
+  background-color: inherit;
+  color: hsl(0, 0%, 98%);
+  transition: 0.5s background-color ease;
+}
+.test__button:hover,
+.test__button:focus-visible {
+  background-color: hsl(204, 98%, 34%);
 }

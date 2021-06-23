@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import './Lesson.scss';
 import '../../../node_modules/normalize.css/normalize.css';
+import { Header } from '../Header/Header';
 
 export const Lesson = () => {
   const { _id } = useParams();
@@ -25,8 +26,20 @@ export const Lesson = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const createContent = ({ tag: Tag, className, content }, index) => {
+  const createContent = ({ tag: Tag, className, content, linkToImage, altToImage }, index) => {
     const key = `${_id}` + index;
+    if (Tag === 'img') {
+      return (
+        <div
+          className={className}
+          data-id={key}
+          key={key}
+          dangerouslySetInnerHTML={{
+            __html: `<figure> <img src=${linkToImage} alt=${altToImage}> <figcaption>${content}</figcaption></figure>`,
+          }}
+        />
+      );
+    }
     return (
       <Tag
         className={className}
@@ -38,9 +51,12 @@ export const Lesson = () => {
   };
 
   return (
-    <div style={{ padding: '150px', background: 'blueviolet' }}>
-      <div className="lesson">{lesson1.map((item, index) => createContent(item, index))}</div>
-      <div style={{ paddingTop: '40px'}}>
+    <div className="lesson" style={{ background: 'blueviolet' }}>
+      <Header />
+      <div className="lesson__content">
+        {lesson1.map((item, index) => createContent(item, index))}
+      </div>
+      <div>
         <Link to={`/test/${_id}`} style={{ color: 'white' }}>
           Пройти тест
         </Link>

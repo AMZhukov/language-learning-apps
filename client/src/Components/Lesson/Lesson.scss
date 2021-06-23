@@ -1,6 +1,13 @@
 @import '../basicStyle.css';
 .lesson {
-  font-size: 50px;
+  color: hsl(2, 0%, 98%);
+  background-attachment: scroll;
+  height: 100vh;
+  overflow-y: auto;
+}
+.lesson__content {
+  //font-size: 50px;
+  padding-top: 100px;
 }
 .lesson__color-yellow {
   color: yellow;

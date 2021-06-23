@@ -49,5 +49,4 @@ async function start() {
   // eslint-disable-next-line no-console
   return console.log(result);
 }
-
 start();

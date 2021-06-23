@@ -20,7 +20,7 @@ export const contentLesson = async (req, res) => {
         return res.status(500).json(`${error}`);
       }
     });
-
+    currentLesson.content.unshift({ tag: 'h1', content: lesson.name });
     return res.status(200).json(currentLesson);
   } catch (error) {
     return res.status(501).json(`${error}`);

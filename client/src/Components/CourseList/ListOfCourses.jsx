@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import useIsMounted from '../../hooks/useIsMounted.hook';
-import { Course } from './Course';
+import useIsMounted from '../../hooks/useIsMounted.hook.js';
+import { Course } from './Course.jsx';
 import './ListOfCourses.scss';
 
 export const ListOfCourses = () => {

@@ -9,7 +9,7 @@ import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputFor
 
 import 'normalize.css';
 import '../basicStyle.css';
-import '../SignIn/SignIn.scss';
+import '../SignIn&SignUp/SignIn&SignUp.scss';
 
 export const CreateLesson = () => {
   const { _id } = useParams();
@@ -28,7 +28,6 @@ export const CreateLesson = () => {
       (async function () {
         try {
           const { data } = await axios.get(`/api/lesson/${_id}`);
-          console.log(data);
           for (let key in data) {
             if (data.hasOwnProperty(key)) {
               setValue(key, data[key]);
@@ -42,15 +41,14 @@ export const CreateLesson = () => {
   }, [_id, setValue]);
 
   const createOrEditLesson = async (newLesson) => {
-    console.log(newLesson);
     try {
       if (isCreateLesson) {
-        await axios.post('/api/createLesson', { newLesson });
+        const { data } = await axios.post('/api/createLesson', { newLesson });
+        setTimeout(() => {
+          history.push(`/editLesson/${data.newId}`);
+        }, 2000);
       } else {
         await axios.put('/api/editLesson', { newLesson });
-        setTimeout(() => {
-          history.push(`/createTest/${_id}`);
-        }, 2000);
       }
     } catch (error) {
       console.log(error.response.data);
@@ -58,7 +56,7 @@ export const CreateLesson = () => {
   };
 
   return (
-    <div className="container" style={{ margin: '0 auto', paddingTop: '100px' }}>
+    <div className="container" style={{ color: 'white', margin: '0 auto', paddingTop: '100px' }}>
       <main className="sign-in">
         <h1>{isCreateLesson ? 'Создание нового урока' : 'Редактирование урока'}</h1>
         <form onSubmit={handleSubmit(createOrEditLesson)} className="sign-in__form">
@@ -131,11 +129,13 @@ export const CreateLesson = () => {
           />
           <button type="submit">{isCreateLesson ? 'Создать урок' : 'Сохранить изменения'}</button>
 
-          <div style={{ paddingTop: '20px' }}>
-            <Link style={{ color: 'white' }} to={`/createLessonContent/${_id}`}>
-              Редактировать контент лекции
-            </Link>
-          </div>
+          {!isCreateLesson && (
+            <div style={{ paddingTop: '20px' }}>
+              <Link style={{ color: 'white' }} to={`/createLessonContent/${_id}`}>
+                Редактировать контент лекции
+              </Link>
+            </div>
+          )}
         </form>
       </main>
     </div>

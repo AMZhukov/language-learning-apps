@@ -3,10 +3,9 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Test from './Components/Test/Test.jsx';
 import { Main } from './Components/MainPage/Main';
-import { Header } from './Components/Header/Header';
-import { Registration } from './Components/Registration/Registration';
+import { Registration } from './Components/SignIn&SignUp/Registration';
 import { FinishTest } from './Components/Test/FinishTest';
-import { SignIn } from './Components/SignIn/SignIn';
+import { SignIn } from './Components/SignIn&SignUp/SignIn';
 import './App.css';
 import './Components/basicStyle.css';
 import { useSelector } from 'react-redux';
@@ -24,7 +23,6 @@ function App() {
   });
   return (
     <div className="App">
-      <Header />
       <Switch>
         <Route exact path="/test" component={Test} />
         {!isAuth && <Route path="/sign-up" component={Registration} />}

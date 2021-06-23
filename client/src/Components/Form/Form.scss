@@ -1,0 +1,35 @@
+.form {
+  width: 320px;
+}
+.form__label-wrapper {
+  padding: 26px 5px;
+  text-align: left;
+}
+.form__label {
+  padding-bottom: 20px;
+  display: block;
+}
+.form__input {
+}
+.form__input_invisible {
+  display: none;
+}
+.form__button-wrapper {
+  padding: 26px 5px;
+}
+.form__button {
+  width: 100%;
+  padding: 15px 0;
+  background-color: inherit;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  border: white 2px solid;
+  transition: opacity 1s linear;
+}
+.form__button:hover {
+  opacity: 75%;
+}
+.form__button:focus-visible {
+  outline: gray 7px solid;
+}

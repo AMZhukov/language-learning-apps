@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import 'normalize.css';
+import { useParams } from 'react-router-dom';
 
+import { Header } from '../Header/Header';
 import { ActiveTest } from './ActiveTest';
 import { FinishTest } from './FinishTest';
 import { useInput } from '../../hooks/useInput';
+
 import { Loading } from '../Loading/Loading';
-import './Test.scss';
+import 'normalize.css';
 import '../basicStyle.css';
-import { useParams } from 'react-router-dom';
+import './Test.scss';
 
 const Test = () => {
   const { _id } = useParams();
@@ -22,7 +24,6 @@ const Test = () => {
   const [isFinished, setIsFinished] = useState(false);
 
   const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState(0);
-  console.log(questions);
   useEffect(() => {
     async function responseLessonTest() {
       try {
@@ -72,37 +73,36 @@ const Test = () => {
     event.preventDefault();
     if (checkingTheCorrectAnswer(answerInput.value)) {
       setNumberOfCorrectAnswers(numberOfCorrectAnswers + 1);
-      setError('test__input-truth');
+      setError('test__input-truth test__input_without-outline');
     } else {
-      setError('test__input-error');
+      setError('test__input-error test__input_without-outline');
     }
     setButtonNextQuestion(true);
   };
 
   return (
     <>
+      <Header />
       <div className="test">
         <div className="test__container container">
-          {
-            !isFinished && (
-              <>
-                {' '}
-                {questions.length === 0 ? (
-                  <Loading />
-                ) : (
-                  <ActiveTest
-                    answerInput={answerInput}
-                    checkWords={checkWords}
-                    questionNumber={questionNumber}
-                    isError={isError}
-                    questions={questions}
-                    buttonNewQuestion={buttonNewQuestion}
-                    nextAnswer={nextAnswer}
-                  />
-                )}
-              </>
-            )
-          }
+          {!isFinished && (
+            <>
+              {' '}
+              {questions.length === 0 ? (
+                <Loading />
+              ) : (
+                <ActiveTest
+                  answerInput={answerInput}
+                  checkWords={checkWords}
+                  questionNumber={questionNumber}
+                  isError={isError}
+                  questions={questions}
+                  buttonNewQuestion={buttonNewQuestion}
+                  nextAnswer={nextAnswer}
+                />
+              )}
+            </>
+          )}
           {isFinished && (
             <FinishTest
               numberOfCorrectAnswers={numberOfCorrectAnswers}
