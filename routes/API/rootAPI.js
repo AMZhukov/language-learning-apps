@@ -19,12 +19,26 @@ import { createLessonContent } from './createLessonContent.js';
 import { editLessonContent } from './editLessonContent.js';
 import { lesson } from './lesson.js';
 import { editTestQuestion } from './editTestQuestion.js';
+import { userController } from '../../controllers/User-controller.js';
+import { authMiddleware } from '../../middlewares/auth-middleware.js';
 
 export const rootAPI = Router();
 
 rootAPI.post('/registration', validateRequest(schema), registration);
 
+rootAPI.post('/registrationNew', validateRequest(schema), userController.register);
+
+rootAPI.get('/activate/:link', userController.activate);
+
+rootAPI.get('/refresh', userController.refresh);
+
+rootAPI.get('/getUsers', authMiddleware(), userController.getUsers);
+
 rootAPI.post('/sign-in', login);
+
+rootAPI.post('/sign-inNew', userController.login);
+
+rootAPI.get('/logout', userController.logout);
 
 rootAPI.get('/testQuestions/:_id', testQuestions);
 

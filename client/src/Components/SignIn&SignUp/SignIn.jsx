@@ -29,7 +29,7 @@ export const SignIn = () => {
 
   const loginHangler = async (loginData) => {
     try {
-      const response = await axios.post('/api/sign-in', { ...loginData });
+      const response = await axios.post('/api/sign-inNew', { ...loginData });
       dispatch(setUserAction(response.data.userId, response.data.token));
       history.push('/');
     } catch (error) {

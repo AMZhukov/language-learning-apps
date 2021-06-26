@@ -29,8 +29,9 @@ export const Registration = () => {
 
   const registration = async (registrationData) => {
     try {
-      const response = await axios.post('/api/registration', { registrationData });
-      dispatch(setUserAction(response.data.userId, response.data.token));
+      const response = await axios.post('/api/registrationNew', { registrationData });
+      console.dir(response);
+      dispatch(setUserAction(response.data.userId, response.data.accessToken));
       history.push('/');
     } catch (error) {
       console.log(error.response.data);

@@ -1,4 +1,5 @@
 import { LOGOUT, SET_USER } from './userTypes';
+import axios from 'axios';
 
 export const setUserAction = (userId, token) => {
   return {
@@ -8,8 +9,14 @@ export const setUserAction = (userId, token) => {
 };
 
 export const logoutAction = () => {
-  console.log('logoutAction');
-  return {
-    type: LOGOUT,
+  return async (dispatch) => {
+    try {
+      const response = await axios.get('/api/logout');
+      console.dir(response.data);
+      dispatch({ type: LOGOUT });
+    } catch (error) {
+      console.log('Неудалось разлогиниться');
+      return null;
+    }
   };
 };
