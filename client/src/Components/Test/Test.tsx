@@ -11,12 +11,13 @@ import { Loading } from '../Loading/Loading';
 import 'normalize.css';
 import '../basicStyle.css';
 import './Test.scss';
+import { QuesitonType } from './types';
 
-const Test = () => {
-  const { _id } = useParams();
+const Test: React.FC = () => {
+  const { _id } = useParams<{ _id?: string }>();
   const [questionNumber, setQuestionNumber] = useState(0);
   const [buttonNewQuestion, setButtonNextQuestion] = useState(false);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<QuesitonType[]>([]);
   const answerInput = useInput('');
 
   const [isError, setError] = useState('');
@@ -25,7 +26,7 @@ const Test = () => {
 
   const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState(0);
   useEffect(() => {
-    async function responseLessonTest() {
+    async function responseLessonTest(): Promise<void> {
       try {
         const { data } = await axios.get(`/api/testQuestions/${_id}`);
         if (data) {
@@ -41,11 +42,11 @@ const Test = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const checkIsFinished = () => {
+  const checkIsFinished = (): boolean => {
     return questionNumber + 1 === questions.length;
   };
 
-  const nextAnswer = async () => {
+  const nextAnswer = async (): Promise<void> => {
     if (checkIsFinished()) {
       try {
         await axios.post(`/api/testQuestions/${_id}`);
@@ -60,7 +61,7 @@ const Test = () => {
     }
   };
 
-  const checkingTheCorrectAnswer = (word) => {
+  const checkingTheCorrectAnswer = (word: string): boolean => {
     for (let i = 0; i < questions[questionNumber].variantsCorrectAnswers.length; i += 1) {
       if (word.toLowerCase().trim() === questions[questionNumber].variantsCorrectAnswers[i]) {
         return true;
@@ -69,7 +70,7 @@ const Test = () => {
     return false;
   };
 
-  const checkWords = (event) => {
+  const checkWords = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (checkingTheCorrectAnswer(answerInput.value)) {
       setNumberOfCorrectAnswers(numberOfCorrectAnswers + 1);

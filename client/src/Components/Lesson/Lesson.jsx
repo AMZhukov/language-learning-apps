@@ -57,7 +57,7 @@ export const Lesson = () => {
         {lesson1.map((item, index) => createContent(item, index))}
       </div>
       <div>
-        <Link to={`/test/${_id}`} style={{ color: 'white' }}>
+        <Link to={`/test/${_id}`} style={{ color: 'white', padding: '20px 0' }}>
           Пройти тест
         </Link>
       </div>

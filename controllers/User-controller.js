@@ -5,14 +5,14 @@ class UserController {
   // eslint-disable-next-line class-methods-use-this
   async register(req, res, next) {
     try {
-      const { email, password, username } = req.body.registrationData;
+      const { email, password, username } = req.body;
       const userData = await userService.registration(email, password, username);
       res.cookie('refreshToken', userData.refreshToken, {
         maxAge: 60 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         secure: process.env.NODE_ENV,
       });
-      return res.status(200).json(userData);
+      return res.status(200).json({ token: userData.token });
     } catch (error) {
       return next(error);
     }
@@ -28,7 +28,7 @@ class UserController {
         httpOnly: true,
         secure: process.env.NODE_ENV,
       });
-      return res.status(200).json(userData);
+      return res.status(200).json({ token: userData.token });
     } catch (error) {
       return next(error);
     }
@@ -67,7 +67,7 @@ class UserController {
         httpOnly: true,
         secure: process.env.NODE_ENV,
       });
-      return res.status(200).json(userData);
+      return res.status(200).json({ token: userData.token });
     } catch (error) {
       return next(error);
     }
@@ -77,7 +77,7 @@ class UserController {
   async getUsers(req, res, next) {
     try {
       const allUsers = await userService.getAllUsers();
-      return res.status(200).json(allUsers);
+      return res.status(200).json({ listUsers: allUsers });
     } catch (error) {
       return next(error);
     }

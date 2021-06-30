@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../Validation/createContentLesson.js';
-import { TextareaForReactHookForm as Textarea } from '../Input/CustomUniversalInputForReactHookForm.jsx';
-import { SelectForReactHookForm as Select } from '../Input/CustomUniversalInputForReactHookForm.jsx';
-import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm.jsx';
+import { TextareaForReactHookForm as Textarea } from '../Input/CustomUniversalInputForReactHookForm.tsx';
+import { SelectForReactHookForm as Select } from '../Input/CustomUniversalInputForReactHookForm.tsx';
+import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm.tsx';
 import './LessonNewContent.scss';
 
 export const FormNewContent = ({ setFormNewContent, setLesson }) => {

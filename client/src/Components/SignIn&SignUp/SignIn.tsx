@@ -1,14 +1,12 @@
 import React from 'react';
-import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { setUserAction } from '../../Redux/login/userAction';
-import { schema } from '../../Validation/registration';
+import { schema } from '../../Validation/logIn';
 
-import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm.jsx';
+import { useActions } from '../../hooks/useActions.hook';
+import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm';
 import { LogoLink } from '../LogoLink/LogoLink';
 
 import 'normalize.css';
@@ -16,22 +14,21 @@ import '../../layout.css';
 
 import './SignIn&SignUp.scss';
 import '../Form/Form.scss';
+import { LoginActionOnset } from '../../Redux/login/userTypes';
 
-export const Registration = () => {
+export const SignIn: React.FC = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-
+  const { loginAction } = useActions();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema), mode: 'onTouched' });
+  } = useForm({ resolver: yupResolver(schema), mode: 'all' });
 
-  const registration = async (registrationData) => {
+  const loginHandler = async ({ email, password }: LoginActionOnset): Promise<void> => {
+    email = email.toLowerCase();
     try {
-      const response = await axios.post('/api/registrationNew', { registrationData });
-      console.dir(response);
-      dispatch(setUserAction(response.data.userId, response.data.accessToken));
+      await loginAction({ email, password });
       history.push('/');
     } catch (error) {
       console.log(error.response.data);
@@ -42,20 +39,8 @@ export const Registration = () => {
     <div className="container">
       <main className="sign-in-sign-up">
         <LogoLink />
-        <h1>Регистрация</h1>
-        <form onSubmit={handleSubmit(registration)} className="form">
-          <div className="form__label-wrapper">
-            <label className="form__label">
-              Имя пользователя
-              <Input
-                name="username"
-                className="form__input"
-                type="text"
-                register={register}
-                errors={errors}
-              />
-            </label>
-          </div>
+        <h1>Вход в учётную запись</h1>
+        <form onSubmit={handleSubmit(loginHandler)} className="form">
           <div className="form__label-wrapper">
             <label className="form__label">
               Почта
@@ -82,14 +67,14 @@ export const Registration = () => {
           </div>
           <div className="form__button-wrapper">
             <button type="submit" className="form__button">
-              Регистрация
+              Войти
             </button>
           </div>
         </form>
         <p className="sign-in-sign-up__p">
-          Уже есть аккаунт?{' '}
-          <Link className="sign-in-sign-up__link" to="/sign-in">
-            Войдите в систему
+          Впервые на сайте?{' '}
+          <Link className="sign-in-sign-up__link" to="/sign-up">
+            Создайте аккаунт
           </Link>
         </p>
       </main>

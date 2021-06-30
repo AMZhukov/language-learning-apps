@@ -4,7 +4,7 @@ import logo from '../../logo.svg';
 
 import './LogoLink.scss';
 
-export const LogoLink = () => {
+export const LogoLink: React.FC = () => {
   return (
     <div className="LogoLink__logo-wrapper" role="banner">
       <Link to="/">

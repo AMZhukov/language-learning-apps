@@ -2,9 +2,9 @@ import React from 'react';
 
 import 'normalize.css';
 import '../basicStyle.css';
+import { ActiveTestType } from './types';
 
-/* eslint-disable react/prop-types */
-export const ActiveTest = ({
+export const ActiveTest: React.FC<ActiveTestType> = ({
   questionNumber,
   isError,
   questions,
@@ -13,7 +13,6 @@ export const ActiveTest = ({
   buttonNewQuestion,
   nextAnswer,
 }) => {
-
   return (
     <>
       <form onSubmit={(event) => checkWords(event)} className="test__form">

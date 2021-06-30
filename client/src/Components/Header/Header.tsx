@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Nav } from '../Nav/Nav.jsx';
+import { Nav } from '../Nav/Nav';
 import './Headers.css';
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="container">

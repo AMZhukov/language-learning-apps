@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { schema } from '../../Validation/createLesson';
-import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm.jsx';
+import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm.tsx';
 
 import 'normalize.css';
 import '../basicStyle.css';

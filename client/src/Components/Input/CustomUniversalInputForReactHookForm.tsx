@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './InputForReactHookForm.scss';
 import { useInput } from '../../hooks/useInput';
+import {
+  SelectForReactHookFormType,
+  CustomUniversalInputForReactHookFormType,
+  TextareaForReactHookFormType,
+  InputForReactHookFormType,
+} from './types';
 
 const CustomUniversalInputForReactHookForm = ({
   tag,
@@ -14,10 +20,10 @@ const CustomUniversalInputForReactHookForm = ({
   options,
   type,
   setCurrentValue,
-}) => {
-  let typeSelect = false;
-  let typeInput = false;
-  let typeTextarea = false;
+}: CustomUniversalInputForReactHookFormType) => {
+  let typeSelect: boolean = false;
+  let typeInput: boolean = false;
+  let typeTextarea: boolean = false;
   // eslint-disable-next-line default-case
   switch (tag) {
     case 'select':
@@ -37,43 +43,26 @@ const CustomUniversalInputForReactHookForm = ({
     if (errors[name]?.message) {
       setClassNameError(' input__input-error');
     } else setClassNameError('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [errors[name]]);
+  }, [errors[name]]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-      typeSelect && setCurrentValue(customInput.value);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [customInput.value]);
+    typeSelect && setCurrentValue && setCurrentValue(customInput.value);
+  }, [customInput.value]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
       {typeInput && (
         <input
           key={name}
-          name={name}
           className={'input__input ' + className + classNameError}
           type={type}
           {...register(name)}
-          // onChange={customInput.onChange}
-          // value={customInput.value}
-          style={style}
-        />
-      )}
-      {typeTextarea && (
-        <textarea
-          key={name}
-          name={name}
-          className={'input__input ' + className + classNameError}
-          {...register(name)}
-          onChange={customInput.onChange}
-          value={customInput.value}
           style={style}
         />
       )}
       {typeSelect && (
         <select
           key={name}
-          name={name}
           className={'input__input ' + className + classNameError}
           {...register(name)}
           onChange={customInput.onChange}
@@ -81,10 +70,21 @@ const CustomUniversalInputForReactHookForm = ({
           style={style}
           size={size}
         >
-          {options.map((option) => {
-            return <option value={option.value}>{option.name}</option>;
-          })}
+          {options &&
+            options.map((option) => {
+              return <option value={option.value}>{option.name}</option>;
+            })}
         </select>
+      )}
+      {typeTextarea && (
+        <textarea
+          key={name}
+          className={'input__input ' + className + classNameError}
+          {...register(name)}
+          onChange={customInput.onChange}
+          value={customInput.value}
+          style={style}
+        />
       )}
 
       {errors[name]?.message && (
@@ -106,7 +106,7 @@ export const SelectForReactHookForm = ({
   size,
   options,
   setCurrentValue,
-}) => {
+}: SelectForReactHookFormType) => {
   return CustomUniversalInputForReactHookForm({
     tag: 'select',
     errors,
@@ -129,7 +129,7 @@ export const TextareaForReactHookForm = ({
   value,
   style,
   setCurrentValue,
-}) => {
+}: TextareaForReactHookFormType) => {
   return CustomUniversalInputForReactHookForm({
     tag: 'textarea',
     errors,
@@ -151,7 +151,7 @@ export const InputForReactHookForm = ({
   value = '',
   style,
   setCurrentValue,
-}) => {
+}: InputForReactHookFormType) => {
   return CustomUniversalInputForReactHookForm({
     tag: 'input',
     errors,

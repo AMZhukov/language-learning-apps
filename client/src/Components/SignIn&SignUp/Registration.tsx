@@ -1,15 +1,14 @@
 import React from 'react';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { setUserAction } from '../../Redux/login/userAction';
-import { schema } from '../../Validation/logIn';
+import { schema } from '../../Validation/registration';
 
-import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm.jsx';
+import { useActions } from '../../hooks/useActions.hook';
+import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm';
 import { LogoLink } from '../LogoLink/LogoLink';
+import { RegistrationActionOnset } from '../../Redux/login/userTypes';
 
 import 'normalize.css';
 import '../../layout.css';
@@ -17,20 +16,23 @@ import '../../layout.css';
 import './SignIn&SignUp.scss';
 import '../Form/Form.scss';
 
-export const SignIn = () => {
+export const Registration: React.FC = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-
+  const { registrationAction } = useActions();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema), mode: 'all' });
+  } = useForm({ resolver: yupResolver(schema), mode: 'onTouched' });
 
-  const loginHangler = async (loginData) => {
+  const registrationHandler = async ({
+    email,
+    password,
+    username,
+  }: RegistrationActionOnset): Promise<void> => {
+    email = email.toLowerCase();
     try {
-      const response = await axios.post('/api/sign-inNew', { ...loginData });
-      dispatch(setUserAction(response.data.userId, response.data.token));
+      await registrationAction({ email, password, username });
       history.push('/');
     } catch (error) {
       console.log(error.response.data);
@@ -41,8 +43,20 @@ export const SignIn = () => {
     <div className="container">
       <main className="sign-in-sign-up">
         <LogoLink />
-        <h1>Вход в учётную запись</h1>
-        <form onSubmit={handleSubmit(loginHangler)} className="form">
+        <h1>Регистрация</h1>
+        <form onSubmit={handleSubmit(registrationHandler)} className="form">
+          <div className="form__label-wrapper">
+            <label className="form__label">
+              Имя пользователя
+              <Input
+                name="username"
+                className="form__input"
+                type="text"
+                register={register}
+                errors={errors}
+              />
+            </label>
+          </div>
           <div className="form__label-wrapper">
             <label className="form__label">
               Почта
@@ -69,14 +83,14 @@ export const SignIn = () => {
           </div>
           <div className="form__button-wrapper">
             <button type="submit" className="form__button">
-              Войти
+              Регистрация
             </button>
           </div>
         </form>
         <p className="sign-in-sign-up__p">
-          Впервые на сайте?{' '}
-          <Link className="sign-in-sign-up__link" to="/sign-up">
-            Создайте аккаунт
+          Уже есть аккаунт?{' '}
+          <Link className="sign-in-sign-up__link" to="/sign-in">
+            Войдите в систему
           </Link>
         </p>
       </main>

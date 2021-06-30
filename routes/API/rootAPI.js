@@ -24,9 +24,9 @@ import { authMiddleware } from '../../middlewares/auth-middleware.js';
 
 export const rootAPI = Router();
 
-rootAPI.post('/registration', validateRequest(schema), registration);
+rootAPI.post('/registrationOld', validateRequest(schema), registration);
 
-rootAPI.post('/registrationNew', validateRequest(schema), userController.register);
+rootAPI.post('/registration', validateRequest(schema), userController.register);
 
 rootAPI.get('/activate/:link', userController.activate);
 
@@ -34,9 +34,9 @@ rootAPI.get('/refresh', userController.refresh);
 
 rootAPI.get('/getUsers', authMiddleware(), userController.getUsers);
 
-rootAPI.post('/sign-in', login);
+rootAPI.post('/sign-inOld', login);
 
-rootAPI.post('/sign-inNew', userController.login);
+rootAPI.post('/sign-in', userController.login);
 
 rootAPI.get('/logout', userController.logout);
 

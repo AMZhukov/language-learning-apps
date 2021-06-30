@@ -5,10 +5,11 @@ import { Link, useParams } from 'react-router-dom';
 import { useInput } from '../../hooks/useInput';
 import './CreateTest.scss';
 import { ListOfQuestions } from './ListOfQuestions';
+import { IQuestion } from './types';
 
-export const CreateTest = () => {
-  const { _id } = useParams();
-  const [questions, setQuestions] = useState([]);
+export const CreateTest: React.FC = () => {
+  const { _id } = useParams<{ _id?: string }>();
+  const [questions, setQuestions] = useState<IQuestion[]>([]);
   const [isPut, setIsPut] = useState(false);
   const [goCreate, setGoCreate] = useState(false);
 
@@ -18,7 +19,6 @@ export const CreateTest = () => {
         const { data } = await axios.get(`/api/testQuestions/${_id}`);
         if (data) {
           setIsPut(true);
-          console.dir('this put');
           setQuestions((prevState) => {
             return [...prevState, ...data.questions];
           });
@@ -52,7 +52,7 @@ export const CreateTest = () => {
     }
   };
 
-  const responseCreateTest = (event) => {
+  const responseCreateTest = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const variantsCorrectAnswers = [
       answerInput1.value,
@@ -79,7 +79,7 @@ export const CreateTest = () => {
     answerInput4.reset();
   };
 
-  const deleteCurrentTest = (indexItem) => {
+  const deleteCurrentTest = (indexItem: number) => {
     setQuestions((prevState) => {
       return [...prevState.filter((_, index) => index !== indexItem)];
     });

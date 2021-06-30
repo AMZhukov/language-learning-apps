@@ -1,13 +1,23 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-import { logoutAction } from '../../Redux/login/userAction';
+import { useActions } from '../../hooks/useActions.hook';
+import { useTypedSelector } from '../../hooks/useTypesSelector.hook';
+
 import '../Nav/Nav.scss';
 
-export const Nav = () => {
-  const dispatch = useDispatch();
-  const isAuth = useSelector((store) => {
+export const Nav: React.FC = () => {
+  const { logoutAction } = useActions();
+  const history = useHistory();
+  const logoutHandler = async (): Promise<void> => {
+    try {
+      await logoutAction();
+      history.push('/');
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+  const isAuth = useTypedSelector((store) => {
     return store.user.isAuth;
   });
   return (
@@ -21,21 +31,21 @@ export const Nav = () => {
           </li>
         )}
         {!isAuth && (
-	        <li className="nav__item">
+          <li className="nav__item">
             <Link className="nav__action" to="/sign-up">
               Sign up
             </Link>
           </li>
         )}
         {isAuth && (
-	        <li className="nav__item">
-            <button onClick={() => dispatch(logoutAction())} className="nav__action nav__button">
+          <li className="nav__item">
+            <button onClick={logoutHandler} className="nav__action nav__button">
               Выйти
             </button>
           </li>
         )}
         {isAuth && (
-	        <li className="nav__item">
+          <li className="nav__item">
             <Link className="nav__action" to="/createLesson">
               Create Lesson
             </Link>

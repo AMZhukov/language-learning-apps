@@ -1,6 +1,6 @@
 import React from 'react';
 import './Loading.css';
-export const Loading = () => {
+export const Loading: React.FC = () => {
   return (
     <div className="lds-roller">
       <div></div>

@@ -12,6 +12,7 @@ const app = express();
 const __dirname = path.resolve(); // eslint-disable-line no-underscore-dangle
 
 const isProd = process.env.NODE_ENV === 'production';
+
 console.log(`Env loading ${isProd ? 'PROD' : 'DEV'} file`); // eslint-disable-line no-console
 
 app.use(express.json());
