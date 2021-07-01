@@ -36,6 +36,7 @@ export const CreateTest: React.FC = () => {
   const answerInput2 = useInput('');
   const answerInput3 = useInput('');
   const answerInput4 = useInput('');
+  const _idInput = useInput('');
 
   const sendDataToServer = async () => {
     try {
@@ -69,9 +70,15 @@ export const CreateTest: React.FC = () => {
     setQuestions((prevState) => {
       return [
         ...prevState,
-        { question: askInput.value, variantsCorrectAnswers: filteredVariantsCorrectAnswers },
+        {
+          _id: _idInput.value,
+          question: askInput.value,
+          variantsCorrectAnswers: filteredVariantsCorrectAnswers,
+          variantsNotCorrectAnswers: ['123123', '123123'],
+        },
       ];
     });
+    _idInput.reset();
     askInput.reset();
     answerInput1.reset();
     answerInput2.reset();
@@ -149,6 +156,12 @@ export const CreateTest: React.FC = () => {
               />
             </label>
           </div>
+          <input
+            type="text"
+            onChange={_idInput.onChange}
+            value={_idInput.value}
+            style={{ display: 'none' }}
+          />
           <button
             type="submit"
             style={{ color: 'white', width: '100px', background: 'black', marginBottom: '20px' }}

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../Validation/createContentLesson.js';
-import { TextareaForReactHookForm as Textarea } from '../Input/CustomUniversalInputForReactHookForm.tsx';
-import { SelectForReactHookForm as Select } from '../Input/CustomUniversalInputForReactHookForm.tsx';
-import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm.tsx';
+import { TextareaForReactHookForm as Textarea } from '../Input/CustomUniversalInputForReactHookForm';
+import { SelectForReactHookForm as Select } from '../Input/CustomUniversalInputForReactHookForm';
+import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm';
 import './LessonNewContent.scss';
+import { IFormNewContent, ILessonContent } from './types';
 
-export const FormNewContent = ({ setFormNewContent, setLesson }) => {
+export const FormNewContent: React.FC<IFormNewContent> = ({ setFormNewContent, setLesson }) => {
   const {
     register,
     handleSubmit,
@@ -23,7 +24,7 @@ export const FormNewContent = ({ setFormNewContent, setLesson }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentValue]);
-  const submit = async (registrationData) => {
+  const submit = async (registrationData: ILessonContent): Promise<void> => {
     try {
       console.log(registrationData);
       setFormNewContent(false);

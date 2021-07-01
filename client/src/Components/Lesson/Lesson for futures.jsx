@@ -93,9 +93,9 @@ export const LessonForFutures = () => {
   useEffect(() => {
     console.log(lesson1);
   });
-  const createContent = (chekedContent, id = '0') => {
-    if (Array.isArray(chekedContent)) {
-      return chekedContent.map((item, index) => {
+  const createContent = (checkedContent, id = '0') => {
+    if (Array.isArray(checkedContent)) {
+      return checkedContent.map((item, index) => {
         if (typeof item === 'string') {
           return item;
         }
@@ -141,7 +141,7 @@ export const LessonForFutures = () => {
         );
       });
     }
-    return chekedContent;
+    return checkedContent;
   };
 
   return (

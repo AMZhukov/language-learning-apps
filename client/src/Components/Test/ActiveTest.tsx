@@ -10,7 +10,7 @@ export const ActiveTest: React.FC<ActiveTestType> = ({
   questions,
   checkWords,
   answerInput,
-  buttonNewQuestion,
+  isButtonNewQuestion,
   nextAnswer,
 }) => {
   return (
@@ -29,14 +29,14 @@ export const ActiveTest: React.FC<ActiveTestType> = ({
               type="text"
             />
           </div>
-          {!buttonNewQuestion && (
+          {!isButtonNewQuestion && (
             <div>
               <button type="submit" className="test__button">
                 Проверить
               </button>
             </div>
           )}
-          {buttonNewQuestion && (
+          {isButtonNewQuestion && (
             <div>
               <button onClick={nextAnswer} type="button" className="test__button">
                 Перейти к следующему вопросу

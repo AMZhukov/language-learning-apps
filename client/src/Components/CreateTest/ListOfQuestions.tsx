@@ -1,7 +1,8 @@
 import React from 'react';
 import { Quesiton } from './Question';
+import { IListOfQuestions } from './types';
 
-export const ListOfQuestions = ({ questions, deleteCurrentTest }) => {
+export const ListOfQuestions: React.FC<IListOfQuestions> = ({ questions, deleteCurrentTest }) => {
   return (
     <div className="ListOfQuestions" style={{ color: 'white', paddingTop: '100px' }}>
       <table style={{ margin: '0 auto' }}>

@@ -5,10 +5,11 @@ import { Link, useParams } from 'react-router-dom';
 import './Lesson.scss';
 import '../../../node_modules/normalize.css/normalize.css';
 import { Header } from '../Header/Header';
+import { CreateContent, ILessonContent } from './types';
 
 export const Lesson = () => {
-  const { _id } = useParams();
-  const [lesson1, setLesson] = useState([]);
+  const { _id } = useParams<{ _id?: string }>();
+  const [lesson, setLesson] = useState<ILessonContent[]>([]);
 
   useEffect(() => {
     (async function responseContentLesson() {
@@ -26,7 +27,10 @@ export const Lesson = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const createContent = ({ tag: Tag, className, content, linkToImage, altToImage }, index) => {
+  const createContent: React.FC<CreateContent> = ({
+    item: { tag: Tag, className, content, linkToImage, altToImage },
+    index,
+  }) => {
     const key = `${_id}` + index;
     if (Tag === 'img') {
       return (
@@ -42,19 +46,19 @@ export const Lesson = () => {
     }
     return (
       <Tag
-        className={className}
-        data-id={key}
-        key={key}
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
-    );
+          className={className}
+          data-id={key}
+          key={key}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+      );
   };
 
   return (
     <div className="lesson" style={{ background: 'blueviolet' }}>
       <Header />
       <div className="lesson__content">
-        {lesson1.map((item, index) => createContent(item, index))}
+        {lesson.map((item, index) => createContent({ item, index }))}
       </div>
       <div>
         <Link to={`/test/${_id}`} style={{ color: 'white', padding: '20px 0' }}>

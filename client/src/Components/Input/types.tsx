@@ -1,6 +1,7 @@
 import { DeepMap, FieldError, FieldValues, UseFormRegister } from 'react-hook-form';
 import { CSSProperties } from 'react';
 
+export type setCurrentValue = (value: string) => any;
 interface ReactHookFormType {
   errors: DeepMap<FieldValues, FieldError>;
   name: string;
@@ -8,14 +9,14 @@ interface ReactHookFormType {
   className: string;
   value?: string;
   style?: CSSProperties | undefined;
-  setCurrentValue?: (value: number | string | null) => any;
+  setCurrentValue?: setCurrentValue;
 }
 type OptionsType = {
   [key: string]: string;
 };
 
 export interface SelectForReactHookFormType extends ReactHookFormType {
-  setCurrentValue: (value: number | string | null) => any;
+  setCurrentValue: setCurrentValue;
   options?: OptionsType[];
   size?: number;
 }

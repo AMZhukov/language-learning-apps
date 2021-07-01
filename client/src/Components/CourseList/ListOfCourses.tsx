@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import useIsMounted from '../../hooks/useIsMounted.hook.js';
-import { Course } from './Course.jsx';
+import { Course } from './Course';
+import { ILesson } from '../CreateLesson/types';
 import './ListOfCourses.scss';
 
-export const ListOfCourses = () => {
+export const ListOfCourses: React.FC = () => {
   const isMounted = useIsMounted();
-  const [courseList, setCourseList] = useState([]);
+  const [courseList, setCourseList] = useState<ILesson[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       try {
         const { data } = await axios.get('/api/courseList');
         if (isMounted()) {
@@ -24,7 +25,7 @@ export const ListOfCourses = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const deleteCourse = async (index) => {
+  const deleteCourse = async (index: number): Promise<void> => {
     const { _id } = courseList[index];
     try {
       await axios.delete(`/api/deleteCourse/${_id}`);

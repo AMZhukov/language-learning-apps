@@ -11,12 +11,12 @@ import { Loading } from '../Loading/Loading';
 import 'normalize.css';
 import '../basicStyle.css';
 import './Test.scss';
-import { QuesitonType } from './types';
+import { CheckWordsType, QuesitonType } from './types';
 
 const Test: React.FC = () => {
   const { _id } = useParams<{ _id?: string }>();
   const [questionNumber, setQuestionNumber] = useState(0);
-  const [buttonNewQuestion, setButtonNextQuestion] = useState(false);
+  const [isButtonNewQuestion, setButtonNextQuestion] = useState(false);
   const [questions, setQuestions] = useState<QuesitonType[]>([]);
   const answerInput = useInput('');
 
@@ -46,13 +46,8 @@ const Test: React.FC = () => {
     return questionNumber + 1 === questions.length;
   };
 
-  const nextAnswer = async (): Promise<void> => {
+  const nextAnswer = (): void => {
     if (checkIsFinished()) {
-      try {
-        await axios.post(`/api/testQuestions/${_id}`);
-      } catch (error) {
-        console.log(error.response.data);
-      }
       setIsFinished(true);
     } else {
       setQuestionNumber((prevNumber) => prevNumber + 1);
@@ -70,7 +65,7 @@ const Test: React.FC = () => {
     return false;
   };
 
-  const checkWords = (event: React.FormEvent<HTMLFormElement>): void => {
+  const checkWords: CheckWordsType = (event) => {
     event.preventDefault();
     if (checkingTheCorrectAnswer(answerInput.value)) {
       setNumberOfCorrectAnswers(numberOfCorrectAnswers + 1);
@@ -98,7 +93,7 @@ const Test: React.FC = () => {
                   questionNumber={questionNumber}
                   isError={isError}
                   questions={questions}
-                  buttonNewQuestion={buttonNewQuestion}
+                  isButtonNewQuestion={isButtonNewQuestion}
                   nextAnswer={nextAnswer}
                 />
               )}

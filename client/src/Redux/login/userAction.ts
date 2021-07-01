@@ -47,7 +47,7 @@ export const registrationAction = ({
   };
 };
 
-export const refreshAuthAction = (cb?: Promise<void>): ThunkType => {
+export const refreshAuthAction = (): ThunkType => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get<AuthResponse>('/api/refresh', { withCredentials: true });
@@ -64,16 +64,12 @@ const setListUsers = (listUsers: UsersList): UserAction => {
     payload: { listUsers },
   };
 };
+
 export const getUsersAction = (): ThunkType => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     try {
       const { data } = await AuthService.getUsers();
       dispatch(setListUsers(data.listUsers));
-    } catch (error) {
-      // if (error.response.status === 401 && error.config) {
-      //   await dispatch(refreshAuthAction());
-      //   await dispatch(getUsersAction());
-      // } else throw error;
-    }
+    } catch (error) {}
   };
 };

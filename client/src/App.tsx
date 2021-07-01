@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
-import Test from './Components/Test/Test.tsx';
+import Test from './Components/Test/Test';
 import { Main } from './Components/MainPage/Main';
 import { Registration } from './Components/SignIn&SignUp/Registration';
 import { FinishTest } from './Components/Test/FinishTest';
 import { SignIn } from './Components/SignIn&SignUp/SignIn';
 import './App.css';
 import './Components/basicStyle.css';
-import { useAuth } from './hooks/useAuth.hook.tsx';
+import { useAuth } from './hooks/useAuth.hook';
 import { CreateTest } from './Components/CreateTest/CreateTest';
 import { ListOfCourses } from './Components/CourseList/ListOfCourses';
 import { CreateLesson } from './Components/CreateLesson/CreateLesson';

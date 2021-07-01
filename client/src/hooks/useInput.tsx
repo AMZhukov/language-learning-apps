@@ -1,12 +1,18 @@
 import { useState } from 'react';
 
-type InitialValueType = string;
 type EventOnChangeType = React.ChangeEvent<
   HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
 >;
 
-export function useInput(initialValue: InitialValueType) {
-  const [value, setValue] = useState<InitialValueType>(initialValue);
+export interface IUseInput {
+  onChange: (event: EventOnChangeType) => void;
+  reset: () => void;
+  value: string;
+  setValue: (string: string) => void;
+}
+
+export const useInput = (initialValue: string): IUseInput => {
+  const [value, setValue] = useState(initialValue);
   const onChange = (event: EventOnChangeType): void => {
     return setValue(event.target.value);
   };
@@ -15,4 +21,4 @@ export function useInput(initialValue: InitialValueType) {
   };
 
   return { onChange, reset, value, setValue };
-}
+};

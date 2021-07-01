@@ -1,6 +1,7 @@
 import React from 'react';
+import {IQuestionRender} from "./types";
 
-export const Quesiton = ({ question, index, deleteCurrentTest }) => {
+export const Quesiton: React.FC<IQuestionRender> = ({ question, index, deleteCurrentTest }) => {
   return (
     <tr key={question._id}>
       <td>{index + 1}</td>

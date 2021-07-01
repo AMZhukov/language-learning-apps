@@ -1,3 +1,5 @@
+import { IUseInput } from '../../hooks/useInput';
+
 export interface QuesitonType {
   question: string;
   variantsCorrectAnswers: string[];
@@ -9,10 +11,10 @@ export interface ActiveTestType {
   questionNumber: number;
   isError: string;
   questions: QuesitonType[];
-  checkWords: CheckWordsType;
-  buttonNewQuestion: boolean;
-  nextAnswer: () => Promise<void>;
-  answerInput: any;
+  checkWords: (event: React.FormEvent<HTMLFormElement>) => void;
+  answerInput: IUseInput;
+  isButtonNewQuestion: boolean;
+  nextAnswer: () => void;
 }
 
 export interface FinishTestType {

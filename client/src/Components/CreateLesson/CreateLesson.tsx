@@ -5,14 +5,15 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { schema } from '../../Validation/createLesson';
-import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm.tsx';
+import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputForReactHookForm';
 
 import 'normalize.css';
 import '../basicStyle.css';
 import '../SignIn&SignUp/SignIn&SignUp.scss';
+import {ILesson} from "./types";
 
 export const CreateLesson = () => {
-  const { _id } = useParams();
+  const { _id } = useParams<{ _id?: string }>();
   const history = useHistory();
   const [isCreateLesson, setIsCreateLesson] = useState(true);
   const {
@@ -40,7 +41,7 @@ export const CreateLesson = () => {
     }
   }, [_id, setValue]);
 
-  const createOrEditLesson = async (newLesson) => {
+  const createOrEditLesson = async (newLesson: ILesson): Promise<void> => {
     try {
       if (isCreateLesson) {
         const { data } = await axios.post('/api/createLesson', { newLesson });

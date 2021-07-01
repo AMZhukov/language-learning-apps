@@ -5,11 +5,12 @@ import { Link, useParams } from 'react-router-dom';
 import './Lesson.scss';
 import 'normalize.css';
 import { FormNewContent } from './FormNewContent';
+import {CreateContent, ILessonContent} from './types';
 
 export const CreateLessonContent = () => {
-  const { _id } = useParams();
+  const { _id } = useParams<{ _id?: string }>();
   const [formNewContent, setFormNewContent] = useState(false);
-  const [lesson1, setLesson] = useState([]);
+  const [lesson, setLesson] = useState<ILessonContent[]>([]);
   const [isPut, setIsPut] = useState(false);
   const [goCreate, setGoCreate] = useState(false);
 
@@ -32,21 +33,22 @@ export const CreateLessonContent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const sendDataToServer = () => {
-    (async function () {
-      try {
-        !isPut && (await axios.post(`/api/LessonContent/${_id}`, { content: lesson1 }));
-        isPut && (await axios.put(`/api/LessonContent/${_id}`, { content: lesson1 }));
+  const sendDataToServer = async (): Promise<void> => {
+    try {
+      !isPut && (await axios.post(`/api/LessonContent/${_id}`, { content: lesson }));
+      isPut && (await axios.put(`/api/LessonContent/${_id}`, { content: lesson }));
 
-        !isPut && setIsPut(true);
-        console.log('Данные успешно отправлены');
-      } catch (error) {
-        console.log(error.response.data);
-      }
-    })();
+      !isPut && setIsPut(true);
+      console.log('Данные успешно отправлены');
+    } catch (error) {
+      console.log(error.response.data);
+    }
   };
 
-  const createContent = ({ tag: Tag, className, content, linkToImage, altToImage }, index) => {
+  const createContent: React.FC<CreateContent> = ({
+    item: { tag: Tag, className, content, linkToImage, altToImage },
+    index,
+  }) => {
     const key = `${_id}` + index;
     if (Tag === 'img') {
       return (
@@ -70,13 +72,13 @@ export const CreateLessonContent = () => {
     );
   };
 
-  const newContent = () => {
+  const newContent = (): void => {
     setFormNewContent((prevState) => !prevState);
   };
 
   return (
     <div style={{ padding: '150px', background: 'blueviolet' }}>
-      <div className="lesson">{lesson1.map((item, index) => createContent(item, index))}</div>
+      <div className="lesson">{lesson.map((item, index) => createContent({ item, index }))}</div>
       {goCreate && (
         <>
           <button onClick={newContent}>{formNewContent ? 'Отменить' : 'Добавить контент'}</button>

@@ -20,8 +20,10 @@ export interface UserState {
 }
 
 export type UsersList = {
-  username: string;
   email: string;
+  username: string;
+  registrationDate: string;
+  isActivated: boolean;
 }[];
 
 export type UserAction = SetUserAction | LogoutAction | setListUsers;
