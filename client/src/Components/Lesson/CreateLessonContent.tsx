@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import './Lesson.scss';
 import 'normalize.css';
 import { FormNewContent } from './FormNewContent';
-import {CreateContent, ILessonContent} from './types';
+import { CreateContent, ILessonContent } from './types';
 
 export const CreateLessonContent = () => {
   const { _id } = useParams<{ _id?: string }>();
@@ -15,17 +15,21 @@ export const CreateLessonContent = () => {
   const [goCreate, setGoCreate] = useState(false);
 
   useEffect(() => {
+    console.log(isPut);
+  });
+
+  useEffect(() => {
     (async function responseContentLesson() {
       try {
         const { data } = await axios.get(`/api/lessonContent/${_id}`);
         console.dir(data);
-        if (data) {
+        if (data.content.length > 1) {
           setIsPut(true);
-          setLesson((prevState) => {
-            return [...prevState, ...data.content];
-          });
         }
         setGoCreate(true);
+        setLesson((prevState) => {
+          return [...prevState, ...data.content];
+        });
       } catch (error) {
         console.log(error.response.data);
       }
@@ -35,9 +39,12 @@ export const CreateLessonContent = () => {
 
   const sendDataToServer = async (): Promise<void> => {
     try {
-      !isPut && (await axios.post(`/api/LessonContent/${_id}`, { content: lesson }));
-      isPut && (await axios.put(`/api/LessonContent/${_id}`, { content: lesson }));
-
+      const lessonWithoutHead = [...lesson];
+      lessonWithoutHead.shift();
+      console.log(lessonWithoutHead);
+      !isPut && (await axios.post(`/api/LessonContent/${_id}`, { content: lessonWithoutHead }));
+      isPut && (await axios.put(`/api/LessonContent/${_id}`, { content: lessonWithoutHead }));
+      console.log(isPut);
       !isPut && setIsPut(true);
       console.log('Данные успешно отправлены');
     } catch (error) {
@@ -77,13 +84,25 @@ export const CreateLessonContent = () => {
   };
 
   return (
-    <div style={{ padding: '150px', background: 'blueviolet' }}>
-      <div className="lesson">{lesson.map((item, index) => createContent({ item, index }))}</div>
+    <div className="lesson">
+      <div className="lesson-wrapper">
+        {lesson.map((item, index) => createContent({ item, index }))}
+      </div>
       {goCreate && (
-        <>
-          <button onClick={newContent}>{formNewContent ? 'Отменить' : 'Добавить контент'}</button>
-          <button onClick={sendDataToServer}>Сохранить изменения на сервере</button>
-        </>
+        <div style={{ paddingTop: '20px' }}>
+          <button
+            style={{ color: 'white', width: '280px', background: 'black', marginBottom: '20px' }}
+            onClick={newContent}
+          >
+            {formNewContent ? 'Отменить' : 'Добавить контент'}
+          </button>
+          <button
+            style={{ color: 'white', width: '280px', background: 'black', marginBottom: '20px' }}
+            onClick={sendDataToServer}
+          >
+            Сохранить изменения на сервере
+          </button>
+        </div>
       )}
       <div style={{ display: `${formNewContent ? 'block' : 'none'}` }}>
         {FormNewContent({ setFormNewContent, setLesson })}

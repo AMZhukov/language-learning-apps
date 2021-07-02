@@ -51,6 +51,13 @@ export const Nav: React.FC = () => {
             </Link>
           </li>
         )}
+        {isAuth && (
+          <li className="nav__item">
+            <Link className="nav__action" to="/getUsers">
+              Получить юзеров
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );

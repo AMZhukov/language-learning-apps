@@ -10,7 +10,7 @@ import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputFor
 import 'normalize.css';
 import '../basicStyle.css';
 import '../SignIn&SignUp/SignIn&SignUp.scss';
-import {ILesson} from "./types";
+import { ILesson } from './types';
 
 export const CreateLesson = () => {
   const { _id } = useParams<{ _id?: string }>();
@@ -128,7 +128,12 @@ export const CreateLesson = () => {
             register={register}
             errors={errors}
           />
-          <button type="submit">{isCreateLesson ? 'Создать урок' : 'Сохранить изменения'}</button>
+          <button
+            style={{ color: 'white', width: '280px', background: 'black', marginBottom: '20px' }}
+            type="submit"
+          >
+            {isCreateLesson ? 'Создать урок' : 'Сохранить изменения'}
+          </button>
 
           {!isCreateLesson && (
             <div style={{ paddingTop: '20px' }}>

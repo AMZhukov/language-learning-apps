@@ -20,6 +20,7 @@ export interface UserState {
 }
 
 export type UsersList = {
+  _id: string;
   email: string;
   username: string;
   registrationDate: string;

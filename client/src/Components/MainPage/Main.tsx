@@ -14,7 +14,6 @@ const Main: React.FC = () => {
           <Link className="main__checkTest" to="/test/startTest">
             Проверь свои знания
           </Link>
-          <Link to="/getUsers">Получить юзеров</Link>
         </div>
       </main>
     </>

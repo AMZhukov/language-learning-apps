@@ -11,6 +11,7 @@ const initialState: UserState = {
 export const userReducer = (state = initialState, action: UserAction): UserState => {
   switch (action.type) {
     case userTypes.SET_USER:
+      console.log(action.payload.token, 'в редюсере');
       return {
         ...state,
         isLogout: false,

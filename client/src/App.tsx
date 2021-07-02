@@ -19,7 +19,7 @@ import { GetUsers } from './Components/GetUsers/GetUsers';
 
 function App() {
   useAuth();
-  const { isAuth } = useTypedSelector((store) => {
+  let { isAuth } = useTypedSelector((store) => {
     return store.user;
   });
   return (
@@ -35,9 +35,7 @@ function App() {
         {isAuth && <Route path="/editLesson/:_id" component={CreateLesson} />}
         {isAuth && <Route path="/createLessonContent/:_id" component={CreateLessonContent} />}
         {isAuth && <Route path="/test/:_id" component={Test} />}
-        <Route path="/getUsers">
-          <GetUsers />
-        </Route>
+        {isAuth && <Route path="/getUsers" component={GetUsers} />}
         <Route path="/">
           <Main />
           <ListOfCourses />

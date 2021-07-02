@@ -6,7 +6,7 @@ import { ApiErrors } from '../exceptions/ApiErrors.js';
 class TokenService {
   // eslint-disable-next-line class-methods-use-this
   generateTokens(payload) {
-    const token = jwt.sign(payload, process.env.JWT, { expiresIn: '5s' });
+    const token = jwt.sign(payload, process.env.JWT, { expiresIn: '15m' });
     const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH, { expiresIn: '20d' });
     return {
       token,

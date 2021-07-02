@@ -12,6 +12,7 @@ import { AuthResponse } from '../../models/response/AuthResponse';
 import { AuthService } from '../../Services/AuthService';
 
 export const setUserAction = (token: string): UserAction => {
+  console.log(token, 'в экшене');
   return {
     type: userTypes.SET_USER,
     payload: { token },

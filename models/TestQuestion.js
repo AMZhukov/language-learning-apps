@@ -7,6 +7,7 @@ const schema = new mongoose.Schema({
     {
       question: { type: String, require: true },
       variantsCorrectAnswers: { type: Array, require: true, of: String },
+      variantsNotCorrectAnswers: { type: Array, of: String},
     },
   ],
 });

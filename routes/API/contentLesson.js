@@ -15,11 +15,15 @@ export const contentLesson = async (req, res) => {
       return res.status(404).json('Данный урок в базе не найден');
     }
     // eslint-disable-next-line consistent-return
-    const currentLesson = await LessonContent.findOne({ _id }, (error) => {
+    let currentLesson = await LessonContent.findOne({ _id }, (error) => {
       if (error) {
         return res.status(500).json(`${error}`);
       }
     });
+    if (!currentLesson) {
+      currentLesson = {};
+      currentLesson.content = [];
+    }
     currentLesson.content.unshift({ tag: 'h1', content: lesson.name });
     return res.status(200).json(currentLesson);
   } catch (error) {

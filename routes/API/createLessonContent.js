@@ -15,7 +15,6 @@ export const createLessonContent = async (req, res) => {
     if (!lesson) {
       return res.status(404).json('Данный урок в базе не найден');
     }
-
     const newContent = new LessonContent({ _id, content });
     // eslint-disable-next-line consistent-return
     await newContent.save((error) => {
