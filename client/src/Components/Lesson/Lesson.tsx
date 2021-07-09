@@ -39,19 +39,19 @@ export const Lesson = () => {
           data-id={key}
           key={key}
           dangerouslySetInnerHTML={{
-            __html: `<figure> <img src=${linkToImage} alt=${altToImage}> <figcaption>${content}</figcaption></figure>`,
+            __html: `<figure style="margin: 0"> <img src=${linkToImage} alt=${altToImage} style='width: 100%'> <figcaption>123${content}</figcaption></figure>`,
           }}
         />
       );
     }
     return (
       <Tag
-          className={className}
-          data-id={key}
-          key={key}
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-      );
+        className={className}
+        data-id={key}
+        key={key}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    );
   };
 
   return (

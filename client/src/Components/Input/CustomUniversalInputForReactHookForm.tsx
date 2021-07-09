@@ -71,8 +71,12 @@ const CustomUniversalInputForReactHookForm = ({
           size={size}
         >
           {options &&
-            options.map((option) => {
-              return <option value={option.value}>{option.name}</option>;
+            options.map((option, index) => {
+              return (
+                <option key={option.name + `${index}`} value={option.value}>
+                  {option.name}
+                </option>
+              );
             })}
         </select>
       )}

@@ -58,63 +58,63 @@ export const CreateLesson = () => {
 
   return (
     <div className="container" style={{ color: 'white', margin: '0 auto', paddingTop: '100px' }}>
-      <main className="sign-in">
+      <main className="sign-in-sign-up">
         <h1>{isCreateLesson ? 'Создание нового урока' : 'Редактирование урока'}</h1>
-        <form onSubmit={handleSubmit(createOrEditLesson)} className="sign-in__form">
-          <div className="registration__label-wrapper">
-            <label className="registration__label">
+        <form onSubmit={handleSubmit(createOrEditLesson)} className="sign-in-sign-up__form">
+          <div className="form__label-wrapper">
+            <label className="form__label">
               Номер главы
               <Input
                 name="headNumber"
-                className="registration__input"
+                className="form__input"
                 type="number"
                 register={register}
                 errors={errors}
               />
             </label>
           </div>
-          <div className="registration__label-wrapper">
-            <label className="registration__label">
+          <div className="form__label-wrapper">
+            <label className="form__label">
               Номер урока
               <Input
                 name="lessonNumber"
-                className="registration__input"
+                className="form__input"
                 type="number"
                 register={register}
                 errors={errors}
               />
             </label>
           </div>
-          <div className="registration__label-wrapper">
-            <label className="registration__label">
+          <div className="form__label-wrapper">
+            <label className="form__label">
               Название
               <Input
                 name="name"
-                className="registration__input"
+                className="form__input"
                 type="text"
                 register={register}
                 errors={errors}
               />
             </label>
           </div>
-          <div className="registration__label-wrapper">
-            <label className="registration__label">
+          <div className="form__label-wrapper">
+            <label className="form__label">
               Описание
               <Input
                 name="description"
-                className="registration__input"
+                className="form__input"
                 type="text"
                 register={register}
                 errors={errors}
               />
             </label>
           </div>
-          <div className="registration__label-wrapper">
-            <label className="registration__label">
+          <div className="form__label-wrapper">
+            <label className="form__label">
               Ссылка на картинку
               <Input
                 name="linkToImage"
-                className="registration__input"
+                className="form__input"
                 type="text"
                 register={register}
                 errors={errors}
@@ -123,7 +123,7 @@ export const CreateLesson = () => {
           </div>
           <Input
             name="_id"
-            className="registration__input registration__input_invisible"
+            className="form__input form__input_invisible"
             type="text"
             register={register}
             errors={errors}

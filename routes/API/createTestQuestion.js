@@ -16,7 +16,12 @@ export const createTestQuestion = async (req, res) => {
       return res.status(404).json('Данный урок в базе не найден');
     }
     const model = new TestQuestions({ questions, _id });
-    await model.save();
+    // eslint-disable-next-line consistent-return
+    await model.save((error) => {
+      if (error) {
+        return res.status(500).json(`${error}`);
+      }
+    });
     return res.status(200).json('All right');
   } catch (error) {
     return res.status(501).json(`${error}`);

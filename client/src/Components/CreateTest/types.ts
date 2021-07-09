@@ -1,5 +1,5 @@
 export interface IQuestion {
-  _id: string;
+  _id?: string;
   question: string;
   variantsCorrectAnswers: string[];
   variantsNotCorrectAnswers: string[];

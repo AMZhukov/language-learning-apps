@@ -19,7 +19,7 @@ export const ListOfQuestions: React.FC<IListOfQuestions> = ({ questions, deleteC
         <tbody>
           {questions.map((question, index) => (
             <Quesiton
-              key={question._id}
+              key={`${question._id}` + index}
               deleteCurrentTest={deleteCurrentTest}
               question={question}
               index={index}

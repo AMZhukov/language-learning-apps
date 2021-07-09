@@ -36,16 +36,19 @@ export const CreateTest: React.FC = () => {
   const answerInput2 = useInput('');
   const answerInput3 = useInput('');
   const answerInput4 = useInput('');
-  const _idInput = useInput('');
+  // @ts-ignore
+  const _idInput = useInput(_id);
 
   const sendDataToServer = async () => {
     try {
       !isPut &&
         (await axios.post(`/api/createTestQuestion/${_id}`, {
+          _id: _idInput.value,
           questions,
         }));
       isPut &&
         (await axios.put(`/api/createTestQuestion/${_id}`, {
+          _id: _idInput.value,
           questions,
         }));
     } catch (error) {
@@ -71,7 +74,6 @@ export const CreateTest: React.FC = () => {
       return [
         ...prevState,
         {
-          _id: _idInput.value,
           question: askInput.value,
           variantsCorrectAnswers: filteredVariantsCorrectAnswers,
           variantsNotCorrectAnswers: ['123123', '123123'],
