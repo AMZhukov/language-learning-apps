@@ -10,9 +10,6 @@ import { InputForReactHookForm as Input } from '../Input/CustomUniversalInputFor
 import { LogoLink } from '../LogoLink/LogoLink';
 import { RegistrationActionOnset } from '../../Redux/login/userTypes';
 
-import 'normalize.css';
-import '../../layout.css';
-
 import './SignIn&SignUp.scss';
 import '../Form/Form.scss';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import { useActions } from '../../hooks/useActions.hook';
@@ -7,8 +7,16 @@ import { useTypedSelector } from '../../hooks/useTypesSelector.hook';
 import '../Nav/Nav.scss';
 
 export const Nav: React.FC = () => {
+  let [isVisible, setIsVisible] = useState(false);
   const { logoutAction } = useActions();
   const history = useHistory();
+
+  const changeVisibleClassName = () => {
+    return setIsVisible((prev) => {
+      return !prev;
+    });
+  };
+
   const logoutHandler = async (): Promise<void> => {
     try {
       await logoutAction();
@@ -22,7 +30,13 @@ export const Nav: React.FC = () => {
   });
   return (
     <nav className="nav">
-      <ul className="nav__menu">
+      <button className="nav__button-view-menu" onClick={changeVisibleClassName}>
+        <div className={'nav__button-icon ' + (isVisible && 'nav__button-icon_rotate')} />
+        <div className={'nav__button-icon ' + (isVisible && 'nav__button-icon_invisible')} />
+        <div className={'nav__button-icon ' + (isVisible && 'nav__button-icon_invisible')} />
+        <div className={'nav__button-icon ' + (isVisible && 'nav__button-icon_rotate-right')} />
+      </button>
+      <ul className={'nav__menu ' + (isVisible && 'nav_view-menu')}>
         {!isAuth && (
           <li className="nav__item">
             <Link className="nav__action" to="/sign-in">

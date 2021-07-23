@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 
 import './Lesson.scss';
-import '../../../node_modules/normalize.css/normalize.css';
 import { Header } from '../Header/Header';
 import { CreateContent, ILessonContent } from './types';
 
@@ -55,15 +54,17 @@ export const Lesson = () => {
   };
 
   return (
-    <div className="lesson" style={{ background: 'blueviolet' }}>
+    <div className="lesson">
       <Header />
-      <div className="lesson__content">
-        {lesson.map((item, index) => createContent({ item, index }))}
-      </div>
-      <div>
-        <Link to={`/test/${_id}`} style={{ color: 'white', padding: '20px 0' }}>
-          Пройти тест
-        </Link>
+      <div className="container">
+        <div className="lesson__content">
+          {lesson.map((item, index) => createContent({ item, index }))}
+        </div>
+        <div className="lesson__link-wrapper">
+          <Link className="lesson__link" to={`/test/${_id}`}>
+            Пройти тест
+          </Link>
+        </div>
       </div>
     </div>
   );

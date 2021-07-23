@@ -2,7 +2,12 @@
   font-size: 40px;
   width: 100%;
   height: 100vh;
-  background-color: darkmagenta;
+  background: linear-gradient(
+    to bottom right,
+    hsl(299, 50%, 44%) 0%,
+    hsl(212, 90%, 40%) 70%,
+    hsl(240, 47%, 40%) 100%
+  );
 }
 
 .main__container {

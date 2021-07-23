@@ -36,8 +36,7 @@ export const CreateTest: React.FC = () => {
   const answerInput2 = useInput('');
   const answerInput3 = useInput('');
   const answerInput4 = useInput('');
-  // @ts-ignore
-  const _idInput = useInput(_id);
+  const _idInput = useInput('');
 
   const sendDataToServer = async () => {
     try {
@@ -76,7 +75,7 @@ export const CreateTest: React.FC = () => {
         {
           question: askInput.value,
           variantsCorrectAnswers: filteredVariantsCorrectAnswers,
-          variantsNotCorrectAnswers: ['123123', '123123'],
+          variantsNotCorrectAnswers: [],
         },
       ];
     });
@@ -97,7 +96,7 @@ export const CreateTest: React.FC = () => {
   return (
     <>
       {!!questions.length && (
-        <div style={{ color: 'white', paddingTop: '100px' }}>
+        <div className="indent">
           <ListOfQuestions questions={questions} deleteCurrentTest={deleteCurrentTest} />
         </div>
       )}

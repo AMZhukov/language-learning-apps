@@ -80,7 +80,7 @@ const Test: React.FC = () => {
     <>
       <Header />
       <div className="test">
-        <div className="test__container container">
+        <div className="indent">
           {!isFinished && (
             <>
               {' '}

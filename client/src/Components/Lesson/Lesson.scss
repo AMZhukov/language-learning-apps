@@ -1,16 +1,13 @@
-@import '../basicStyle.css';
 .lesson {
   color: hsl(2, 0%, 98%);
   background-attachment: scroll;
   height: 100vh;
   overflow-y: auto;
-  padding: 150px;
   background-color: blueviolet;
 }
 .lesson__wrapper {
 }
 .lesson__content {
-  //font-size: 50px;
   padding-top: 100px;
 }
 .lesson__color-yellow {
@@ -26,6 +23,18 @@
 }
 .lesson__button:active {
   outline: #0b2f65;
-  //border: #e84f30 2px solid;
   background-color: brown;
+}
+
+.lesson__link-wrapper {
+  margin: 20px 0;
+}
+.lesson__link {
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid black;
+}
+.lesson__link:hover {
+  border-width: 3px;
+  color: black;
 }

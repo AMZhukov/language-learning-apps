@@ -4,10 +4,10 @@ import { Route, Switch } from 'react-router-dom';
 import Test from './Components/Test/Test';
 import { Main } from './Components/MainPage/Main';
 import { Registration } from './Components/SignIn&SignUp/Registration';
-import { FinishTest } from './Components/Test/FinishTest';
 import { SignIn } from './Components/SignIn&SignUp/SignIn';
 import './App.css';
 import './Components/basicStyle.css';
+import 'normalize.css';
 import { useAuth } from './hooks/useAuth.hook';
 import { CreateTest } from './Components/CreateTest/CreateTest';
 import { ListOfCourses } from './Components/CourseList/ListOfCourses';
@@ -28,7 +28,6 @@ function App() {
         <Route exact path="/test" component={Test} />
         {!isAuth && <Route path="/sign-up" component={Registration} />}
         {!isAuth && <Route path="/sign-in" component={SignIn} />}
-        <Route path="/finishTest" component={FinishTest} />
         {isAuth && <Route path="/lesson/:_id" component={Lesson} />}
         {isAuth && <Route path="/createTest/:_id" component={CreateTest} />}
         {isAuth && <Route exact path="/createLesson" component={CreateLesson} />}

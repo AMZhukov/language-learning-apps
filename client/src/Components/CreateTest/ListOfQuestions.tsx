@@ -4,8 +4,8 @@ import { IListOfQuestions } from './types';
 
 export const ListOfQuestions: React.FC<IListOfQuestions> = ({ questions, deleteCurrentTest }) => {
   return (
-    <div className="ListOfQuestions" style={{ color: 'white', paddingTop: '100px' }}>
-      <table style={{ margin: '0 auto' }}>
+    <div className="list-of-questions">
+      <table className="table-of-questions">
         <caption>Список вопросов</caption>
         <thead>
           <tr>
