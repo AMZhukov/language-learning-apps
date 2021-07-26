@@ -27,6 +27,7 @@ export const ListOfCourses: React.FC = () => {
 
   const deleteCourse = async (index: number): Promise<void> => {
     const { _id } = courseList[index];
+    return alert('Удаление лекций, на текущий момент отключено');
     try {
       await axios.delete(`/api/deleteCourse/${_id}`);
       setCourseList((prevState) => {

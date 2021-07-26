@@ -28,13 +28,13 @@ function App() {
         <Route exact path="/test" component={Test} />
         {!isAuth && <Route path="/sign-up" component={Registration} />}
         {!isAuth && <Route path="/sign-in" component={SignIn} />}
-        {isAuth && <Route path="/lesson/:_id" component={Lesson} />}
         {isAuth && <Route path="/createTest/:_id" component={CreateTest} />}
         {isAuth && <Route exact path="/createLesson" component={CreateLesson} />}
         {isAuth && <Route path="/editLesson/:_id" component={CreateLesson} />}
         {isAuth && <Route path="/createLessonContent/:_id" component={CreateLessonContent} />}
-        {isAuth && <Route path="/test/:_id" component={Test} />}
         {isAuth && <Route path="/getUsers" component={GetUsers} />}
+        <Route path="/lesson/:_id" component={Lesson} />
+        <Route path="/test/:_id" component={Test} />
         <Route path="/">
           <Main />
           <ListOfCourses />
